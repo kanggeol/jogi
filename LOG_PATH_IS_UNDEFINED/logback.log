@@ -2751,3 +2751,106 @@ javax.el.PropertyNotFoundException: Property [name] not found on type [com.daily
 |[unread] |[unread]  |[unread]    |2    |[unread]          |
 |---------|----------|------------|-----|------------------|
 
+[2024-08-26 22:33:17:144335][http-nio-9091-exec-7] [34mINFO [0;39m jdbc.sqltiming - SELECT player_name AS playerName, SUM(calculated_amount) AS totalAmount
+        FROM game_results
+        GROUP BY player_name
+        ORDER BY totalAmount DESC
+ {executed in 7 msec}
+[2024-08-26 22:33:17:144346][http-nio-9091-exec-7] [34mINFO [0;39m jdbc.resultsettable - 
+|------------|------------|
+|player_name |totalamount |
+|------------|------------|
+|써니          |96000       |
+|통사완         |12000       |
+|강걸          |10000       |
+|정창훈         |0           |
+|권용석         |-12000      |
+|김영현         |-36000      |
+|박준영         |-70000      |
+|------------|------------|
+
+[2024-08-26 22:33:39:166782][http-nio-9091-exec-9] [34mINFO [0;39m jdbc.sqltiming - DELETE FROM game_results WHERE game_date = '2024-08-26'
+ {executed in 6 msec}
+[2024-08-26 22:33:39:166792][http-nio-9091-exec-9] [34mINFO [0;39m jdbc.sqltiming - INSERT INTO game_results (game_date, player_name, rank, calculated_amount)
+        VALUES ('2024-08-26', '강걸', 1, 10000)
+ {executed in 6 msec}
+[2024-08-26 22:33:39:166801][http-nio-9091-exec-9] [34mINFO [0;39m jdbc.sqltiming - INSERT INTO game_results (game_date, player_name, rank, calculated_amount)
+        VALUES ('2024-08-26', '박준영', 2, -10000)
+ {executed in 5 msec}
+[2024-08-26 22:33:45:173032][http-nio-9091-exec-10] [34mINFO [0;39m jdbc.sqltiming - SELECT * FROM game_results WHERE game_date = '2024-08-26'
+        order by `rank` asc
+ {executed in 7 msec}
+[2024-08-26 22:33:45:173045][http-nio-9091-exec-10] [34mINFO [0;39m jdbc.resultsettable - 
+|---------|----------|------------|-----|------------------|
+|id       |game_date |player_name |rank |calculated_amount |
+|---------|----------|------------|-----|------------------|
+|[unread] |[unread]  |[unread]    |1    |[unread]          |
+|[unread] |[unread]  |[unread]    |2    |[unread]          |
+|---------|----------|------------|-----|------------------|
+
+[2024-08-26 22:34:27:214893][http-nio-9091-exec-3] [34mINFO [0;39m jdbc.sqltiming - SELECT * FROM game_results WHERE game_date = '2024-08-26'
+        order by `rank` asc
+ {executed in 7 msec}
+[2024-08-26 22:34:27:214899][http-nio-9091-exec-3] [34mINFO [0;39m jdbc.resultsettable - 
+|---------|----------|------------|-----|------------------|
+|id       |game_date |player_name |rank |calculated_amount |
+|---------|----------|------------|-----|------------------|
+|[unread] |[unread]  |[unread]    |1    |[unread]          |
+|[unread] |[unread]  |[unread]    |2    |[unread]          |
+|---------|----------|------------|-----|------------------|
+
+[2024-08-26 22:36:34:341667][SpringApplicationShutdownHook] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+[2024-08-26 22:36:34:341680][SpringApplicationShutdownHook] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+[2024-08-26 22:36:38:777][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Starting JogiGolfApplication using Java 11.0.23 on gang-geol-ui-MacBookPro.local with PID 14444 (/Users/study/jogi/build/classes/java/main started by kanggeol in /Users/study/jogi)
+[2024-08-26 22:36:38:779][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - The following 1 profile is active: "prod"
+[2024-08-26 22:36:38:790][background-preinit] [34mINFO [0;39m o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.3.Final
+[2024-08-26 22:36:38:829][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-08-26 22:36:38:830][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-08-26 22:36:39:2128][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9091 (http)
+[2024-08-26 22:36:39:2134][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9091"]
+[2024-08-26 22:36:39:2135][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2024-08-26 22:36:39:2135][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.62]
+[2024-08-26 22:36:40:2383][restartedMain] [34mINFO [0;39m o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+[2024-08-26 22:36:40:2386][restartedMain] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2024-08-26 22:36:40:2386][restartedMain] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1556 ms
+[2024-08-26 22:36:40:2722][restartedMain] [34mINFO [0;39m o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+[2024-08-26 22:36:40:2867][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-9091"]
+[2024-08-26 22:36:40:2884][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9091 (http) with context path ''
+[2024-08-26 22:36:40:2899][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Started JogiGolfApplication in 2.624 seconds (JVM running for 3.402)
+[2024-08-26 22:36:43:5750][http-nio-9091-exec-1] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-08-26 22:36:43:5750][http-nio-9091-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[2024-08-26 22:36:43:5751][http-nio-9091-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[2024-08-26 22:36:43:5779][http-nio-9091-exec-1] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[2024-08-26 22:36:43:6006][http-nio-9091-exec-1] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[2024-08-26 22:36:43:6022][http-nio-9091-exec-1] [34mINFO [0;39m jdbc.sqltiming - SELECT player_name AS playerName, SUM(calculated_amount) AS totalAmount
+        FROM game_results
+        GROUP BY player_name
+        ORDER BY totalAmount DESC
+ {executed in 6 msec}
+[2024-08-26 22:36:43:6030][http-nio-9091-exec-1] [34mINFO [0;39m jdbc.resultsettable - 
+|------------|------------|
+|player_name |totalamount |
+|------------|------------|
+|강걸          |26000       |
+|박준영         |-26000      |
+|------------|------------|
+
+[2024-08-26 22:37:05:27850][http-nio-9091-exec-3] [34mINFO [0;39m jdbc.sqltiming - DELETE FROM game_results WHERE game_date = '2024-08-26'
+ {executed in 6 msec}
+[2024-08-26 22:37:05:27862][http-nio-9091-exec-3] [34mINFO [0;39m jdbc.sqltiming - INSERT INTO game_results (game_date, player_name, rank, calculated_amount)
+        VALUES ('2024-08-26', '강걸', 1, 10000)
+ {executed in 7 msec}
+[2024-08-26 22:37:05:27868][http-nio-9091-exec-3] [34mINFO [0;39m jdbc.sqltiming - INSERT INTO game_results (game_date, player_name, rank, calculated_amount)
+        VALUES ('2024-08-26', '박준영', 2, -10000)
+ {executed in 5 msec}
+[2024-08-26 22:37:13:35541][http-nio-9091-exec-4] [34mINFO [0;39m jdbc.sqltiming - SELECT id, game_date, player_name, `rank`, calculated_amount FROM game_results WHERE game_date = '2024-08-26'
+        order by `rank` asc
+ {executed in 7 msec}
+[2024-08-26 22:37:13:35545][http-nio-9091-exec-4] [34mINFO [0;39m jdbc.resultsettable - 
+|---------|----------|------------|-----|------------------|
+|id       |game_date |player_name |rank |calculated_amount |
+|---------|----------|------------|-----|------------------|
+|[unread] |[unread]  |[unread]    |1    |[unread]          |
+|[unread] |[unread]  |[unread]    |2    |[unread]          |
+|---------|----------|------------|-----|------------------|
+
