@@ -11,8 +11,9 @@
     </insert>
 
     <select id="selectGameResultsByDate" resultType="com.dailystudy.jogi_golf.domain.GameResult">
-        SELECT id, game_date, player_name, `rank`, calculated_amount FROM game_results WHERE game_date = #{gameDate}
-        order by `rank` asc
+        SELECT game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount
+        FROM game_results WHERE game_date = #{gameDate}
+        order by rank asc
     </select>
 
     <select id="selectPlayerTotals" resultType="com.dailystudy.jogi_golf.domain.PlayerTotal">

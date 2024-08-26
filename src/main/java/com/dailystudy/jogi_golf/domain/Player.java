@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Player {
-    private String name;
+    private String playerName;
     private int todayScore;
     private int handicap;
 }

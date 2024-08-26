@@ -44,7 +44,7 @@ public class GameController {
         List<Player> players = new ArrayList<>();
         for (int i = 0; i < names.size(); i++) {
             Player player = new Player();
-            player.setName(names.get(i));
+            player.setPlayerName(names.get(i));
             player.setTodayScore(todayScores.get(i));
             player.setHandicap(handicaps.get(i));
             players.add(player);
@@ -67,6 +67,7 @@ public class GameController {
     @GetMapping("/results")
     public String getResultsByDate(@RequestParam("date") String date, Model model) {
         List<GameResult> results = gameService.getGameResultsByDate(date);
+        System.out.println("======results "+results);
         model.addAttribute("results", results);
         model.addAttribute("gameDate", date);
         return "gameResult";

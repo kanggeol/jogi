@@ -36,7 +36,7 @@ public class GameService {
                 amount += difference * gameFee;
             }
             GameResult result = new GameResult();
-            result.setPlayerName(players.get(i).getName());
+            result.setPlayerName(players.get(i).getPlayerName());
             result.setRank(i + 1);
             result.setCalculatedAmount(amount);
             results.add(result);
