@@ -4,14 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class GameResult {
-    private String gameDate;
+public class PlayerTotal {
     private String playerName;
-    private int rank;
-    private int calculatedAmount;
+    private Integer totalAmount;
 }

@@ -2,6 +2,7 @@ package com.dailystudy.jogi_golf.controller;
 
 import com.dailystudy.jogi_golf.domain.GameResult;
 import com.dailystudy.jogi_golf.domain.Player;
+import com.dailystudy.jogi_golf.domain.PlayerTotal;
 import com.dailystudy.jogi_golf.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,13 @@ public class GameController {
     }
 
     @GetMapping("/")
+    public String index(Model model) {
+        List<PlayerTotal> playerTotals = gameService.getPlayerTotals();
+        model.addAttribute("playerTotals", playerTotals);
+        return "index";
+    }
+
+    @GetMapping("/gameForm")
     public String showGameForm() {
         return "gameForm";
     }
@@ -30,6 +38,7 @@ public class GameController {
             @RequestParam("names") List<String> names,
             @RequestParam("todayScores") List<Integer> todayScores,
             @RequestParam("handicaps") List<Integer> handicaps,
+            @RequestParam("gameDate") String gameDate, // 날짜도 받아옵니다.
             Model model) {
 
         List<Player> players = new ArrayList<>();
@@ -41,21 +50,23 @@ public class GameController {
             players.add(player);
         }
 
+        // 게임 결과 계산
         List<GameResult> results = gameService.calculateGameResults(players, gameFee);
         model.addAttribute("results", results);
+
+        // 결과 저장
+        gameService.deleteGameResult(gameDate);
+        for (GameResult result : results) {
+            result.setGameDate(gameDate); // 날짜 설정
+            gameService.saveGameResult(result);
+        }
 
         return "gameResult";
     }
 
-    // 날짜로 조회하는 메서드 (예시)
     @GetMapping("/results")
     public String getResultsByDate(@RequestParam("date") String date, Model model) {
-        // 특정 날짜의 결과를 조회 (실제 구현에서는 DB 조회)
-        List<GameResult> results = new ArrayList<>();
-        // 결과를 예시로 추가
-        results.add(new GameResult("권용석", 1, 8000));
-        results.add(new GameResult("박준영", 2, -8000));
-
+        List<GameResult> results = gameService.getGameResultsByDate(date);
         model.addAttribute("results", results);
         model.addAttribute("gameDate", date);
         return "gameResult";

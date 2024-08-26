@@ -51,7 +51,7 @@
 </head>
 <body>
 <div class="container">
-  <h1>Game Calculator</h1>
+  <h1>게임 계산기</h1>
   <form action="/calculate" method="post">
     <div class="form-group">
       <label for="gameDate">날짜</label>

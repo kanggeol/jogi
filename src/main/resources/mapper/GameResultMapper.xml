@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dailystudy.jogi_golf.mapper.GameResultMapper">
+
+    <insert id="insertGameResult">
+        INSERT INTO game_results (game_date, player_name, rank, calculated_amount)
+        VALUES (#{gameDate}, #{playerName}, #{rank}, #{calculatedAmount})
+    </insert>
+
+    <select id="selectGameResultsByDate" resultType="com.dailystudy.jogi_golf.domain.GameResult">
+        SELECT * FROM game_results WHERE game_date = #{gameDate}
+        order by `rank` asc
+    </select>
+
+    <select id="selectPlayerTotals" resultType="com.dailystudy.jogi_golf.domain.PlayerTotal">
+        SELECT player_name AS playerName, SUM(calculated_amount) AS totalAmount
+        FROM game_results
+        GROUP BY player_name
+        ORDER BY totalAmount DESC
+    </select>
+
+    <delete id="deleteGameResult" parameterType="String">
+        DELETE FROM game_results WHERE game_date = #{gameDate}
+    </delete>
+
+</mapper>
