@@ -26,7 +26,7 @@
           const year = today.getFullYear();
           const month = ('0' + (today.getMonth() + 1)).slice(-2);
           const day = ('0' + today.getDate()).slice(-2);
-          return `${year}${month}${day}`;
+          return `${year}-${month}-${day}`;
       }
 
       function generatePlayerForms() {
@@ -61,6 +61,14 @@
       // 페이지가 로드되면 오늘 날짜를 기본값으로 설정
       window.onload = function() {
           document.getElementById('gameDate').value = getToday();
+
+          // 인원수 입력 필드에서 엔터 키 입력 감지
+          document.getElementById('playerCount').addEventListener('keypress', function(event) {
+              if (event.key === 'Enter') {
+                  event.preventDefault(); // 폼 제출 방지
+                  generatePlayerForms();
+              }
+          });
       }
   </script>
 </head>

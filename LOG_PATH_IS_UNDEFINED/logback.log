@@ -1209,3 +1209,56 @@ java.net.ConnectException: Connection timed out: no further information
 [2024-08-27 14:38:07:2026][http-nio-8080-exec-1] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
 [2024-08-27 14:38:07:2026][http-nio-8080-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
 [2024-08-27 14:38:07:2026][http-nio-8080-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+[2024-08-27 14:45:36:344][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Starting JogiGolfApplication using Java 17.0.10 on GEOL with PID 17392 (D:\dev\jogi_golf\build\classes\java\main started by xyritol in D:\dev\jogi_golf)
+[2024-08-27 14:45:36:345][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - The following 2 profiles are active: "local", "common"
+[2024-08-27 14:45:36:365][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-08-27 14:45:36:366][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-08-27 14:45:37:861][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[2024-08-27 14:45:37:866][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[2024-08-27 14:45:37:866][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2024-08-27 14:45:37:867][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.62]
+[2024-08-27 14:45:37:953][restartedMain] [34mINFO [0;39m o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+[2024-08-27 14:45:37:956][restartedMain] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2024-08-27 14:45:37:956][restartedMain] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 590 ms
+[2024-08-27 14:45:37:1168][restartedMain] [34mINFO [0;39m o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+[2024-08-27 14:45:37:1242][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[2024-08-27 14:45:37:1255][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[2024-08-27 14:45:37:1261][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Started JogiGolfApplication in 1.147 seconds (JVM running for 1.506)
+[2024-08-27 14:45:41:5257][http-nio-8080-exec-1] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-08-27 14:45:41:5257][http-nio-8080-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[2024-08-27 14:45:41:5257][http-nio-8080-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+[2024-08-27 14:45:41:5277][http-nio-8080-exec-1] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[2024-08-27 14:45:41:5407][http-nio-8080-exec-1] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[2024-08-27 14:45:41:5420][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.sqltiming - SELECT player_name AS playerName,
+               SUM(calculated_amount) AS totalAmount,
+               COUNT(*) AS participationCount
+        FROM game_results
+        GROUP BY player_name
+        ORDER BY totalAmount DESC
+ {executed in 3 msec}
+[2024-08-27 14:45:41:5427][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.resultsettable - 
+|------------|------------|-------------------|
+|player_name |totalamount |participationcount |
+|------------|------------|-------------------|
+|박준영         |6000        |1                  |
+|권용석         |6000        |1                  |
+|강걸          |-12000      |2                  |
+|------------|------------|-------------------|
+
+[2024-08-27 14:46:56:80049][SpringApplicationShutdownHook] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+[2024-08-27 14:46:56:80052][SpringApplicationShutdownHook] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+[2024-08-27 14:46:58:331][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Starting JogiGolfApplication using Java 17.0.10 on GEOL with PID 10180 (D:\dev\jogi_golf\build\classes\java\main started by xyritol in D:\dev\jogi_golf)
+[2024-08-27 14:46:58:331][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - The following 2 profiles are active: "local", "common"
+[2024-08-27 14:46:58:351][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-08-27 14:46:58:351][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-08-27 14:46:58:837][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[2024-08-27 14:46:58:842][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[2024-08-27 14:46:58:842][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2024-08-27 14:46:58:842][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.62]
+[2024-08-27 14:46:58:920][restartedMain] [34mINFO [0;39m o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+[2024-08-27 14:46:58:923][restartedMain] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2024-08-27 14:46:58:923][restartedMain] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 572 ms
+[2024-08-27 14:46:58:1134][restartedMain] [34mINFO [0;39m o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+[2024-08-27 14:46:58:1210][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[2024-08-27 14:46:58:1223][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[2024-08-27 14:46:58:1229][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Started JogiGolfApplication in 1.123 seconds (JVM running for 1.462)
