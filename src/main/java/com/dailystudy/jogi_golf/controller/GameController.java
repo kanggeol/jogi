@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 @Controller
@@ -28,7 +30,13 @@ public class GameController {
     }
 
     @GetMapping("/gameForm")
-    public String showGameForm() {
+    public String showGameForm(Model model) {
+        // 현재 날짜를 yyyy-MM-dd 형식으로 포맷
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = today.format(formatter);
+
+        model.addAttribute("today", formattedDate);
         return "gameForm";
     }
 
