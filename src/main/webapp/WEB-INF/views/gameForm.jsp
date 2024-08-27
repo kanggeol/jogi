@@ -6,6 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <title>Game Calculator</title>
+  <style>
+      .player-form {
+          border: 1px solid #ccc;
+          padding: 15px;
+          margin-bottom: 15px;
+          background-color: #f9f9f9;
+          border-radius: 8px;
+      }
+      .player-form h5 {
+          margin-bottom: 10px;
+          font-weight: bold;
+      }
+  </style>
   <script>
       // 현재 날짜를 yyyy-MM-dd 형식으로 반환
       function getToday() {
@@ -13,7 +26,7 @@
           const year = today.getFullYear();
           const month = ('0' + (today.getMonth() + 1)).slice(-2);
           const day = ('0' + today.getDate()).slice(-2);
-          return `${year}-${month}-${day}`;
+          return `${year}${month}${day}`;
       }
 
       function generatePlayerForms() {
@@ -23,20 +36,22 @@
 
           for (let i = 0; i < playerCount; i++) {
               const row = document.createElement('div');
-              row.className = 'form-row mb-2';
-
+              row.className = 'player-form';
               row.innerHTML = `
-                    <div class="form-group col-md-4">
-                        <label>이름</label>
-                        <input type="text" name="names" class="form-control" placeholder="플레이어 ${i + 1} 이름" required>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>오늘의 타수</label>
-                        <input type="number" name="todayScores" class="form-control" placeholder="타수 입력" required>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>핸디</label>
-                        <input type="number" name="handicaps" class="form-control" placeholder="핸디 입력" required>
+                    <%--<h5>플레이어 ${i + 1}</h5>--%>
+                    <div class="form-row mb-2">
+                        <div class="form-group col-md-4">
+                            <label>이름</label>
+                            <input type="text" name="names" class="form-control" placeholder="이름 입력" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>오늘의 타수</label>
+                            <input type="number" name="todayScores" class="form-control" placeholder="타수 입력" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>핸디</label>
+                            <input type="number" name="handicaps" class="form-control" placeholder="핸디 입력" required>
+                        </div>
                     </div>
                 `;
               playersDiv.appendChild(row);
@@ -50,8 +65,7 @@
   </script>
 </head>
 <body>
-<div class="container">
-  <h1>게임 계산기</h1>
+<div class="container" style="padding: 20px">
   <form action="/calculate" method="post">
     <div class="form-group">
       <label for="gameDate">날짜</label>

@@ -15,7 +15,7 @@
         <thead>
         <tr>
             <th>순위</th>
-            <th>플레이어 이름</th>
+            <th>이름</th>
             <th>참여</th>
             <th>총 금액</th>
         </tr>
