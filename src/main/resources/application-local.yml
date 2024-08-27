@@ -1,0 +1,31 @@
+spring:
+  config:
+    activate:
+      on-profile: "local"
+
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://210.122.35.31:3306/golf?serverTimezone=UTC&characterEncoding=EUC-KR&zeroDateTimeBehavior=convertToNull
+    username: rlvdms
+    password: todrkr122
+
+  devtools:
+    livereload:
+      enabled: false
+    restart:
+      enabled: false
+
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  log-file-path: "/home/logs/golf"
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.dailystudy.jogi_golf.dto
+
+server:
+  port: 8080
