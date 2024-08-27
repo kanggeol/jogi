@@ -1,13 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-${results}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <title>게임 결기</title>
+  <title>게임 결과</title>
 </head>
 <body>
 <div class="container">
@@ -39,6 +38,7 @@ ${results}
     </div>
     <button type="submit" class="btn btn-info">조회하기</button>
   </form>
+  <a href="/" class="btn btn-primary mt-3">총금액 확인</a>
 </div>
 </body>
 </html>

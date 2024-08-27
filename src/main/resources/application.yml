@@ -37,4 +37,4 @@ servlet:
     max-file-size: 10MB
 
 server:
-  port: 9091
+  port: 8080

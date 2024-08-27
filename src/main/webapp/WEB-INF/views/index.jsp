@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>총금액 순위</title>
 </head>
-<body>
+<body style="margin: 20px">
 <div class="container">
     <h1>플레이어 총 금액</h1>
     <table class="table table-bordered">
