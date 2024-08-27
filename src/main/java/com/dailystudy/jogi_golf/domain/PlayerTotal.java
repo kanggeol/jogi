@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class PlayerTotal {
     private String playerName;
     private Integer totalAmount;
+    private int participationCount;
 }

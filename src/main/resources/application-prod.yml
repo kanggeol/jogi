@@ -5,7 +5,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.129.4.11:3306/new_center?serverTimezone=UTC&characterEncoding=EUC-KR&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://10.129.4.11:3306/golf?serverTimezone=UTC&characterEncoding=EUC-KR&zeroDateTimeBehavior=convertToNull
     username: rlvdms
     password: todrkr122
 

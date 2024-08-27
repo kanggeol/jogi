@@ -16,17 +16,20 @@
         <tr>
             <th>순위</th>
             <th>플레이어 이름</th>
+            <th>참여</th>
             <th>총 금액</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="player" items="${playerTotals}" varStatus="status">
             <tr>
-                <td>${status.index + 1}</td> <!-- 수정된 부분 -->
+                <td>${status.index + 1}</td>
                 <td>${player.playerName}</td>
+                <td>${player.participationCount}회</td>
                 <td>${player.totalAmount}원</td>
             </tr>
         </c:forEach>
+
         </tbody>
     </table>
     <a href="/gameForm" class="btn btn-primary mt-3">기록 저장하기</a>

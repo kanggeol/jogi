@@ -59,7 +59,7 @@
     </div>
     <div class="form-group">
       <label for="gameFee">타당 게임비</label>
-      <input type="number" class="form-control" id="gameFee" name="gameFee" required>
+      <input type="number" class="form-control" id="gameFee" name="gameFee" value="2000" required>
     </div>
     <div class="form-group">
       <label for="playerCount">인원수</label>

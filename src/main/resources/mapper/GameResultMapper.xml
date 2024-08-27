@@ -17,7 +17,9 @@
     </select>
 
     <select id="selectPlayerTotals" resultType="com.dailystudy.jogi_golf.domain.PlayerTotal">
-        SELECT player_name AS playerName, SUM(calculated_amount) AS totalAmount
+        SELECT player_name AS playerName,
+               SUM(calculated_amount) AS totalAmount,
+               COUNT(*) AS participationCount
         FROM game_results
         GROUP BY player_name
         ORDER BY totalAmount DESC
