@@ -28,25 +28,27 @@
           playersDiv.innerHTML = ''; // 기존 폼 초기화
 
           for (let i = 0; i < playerCount; i++) {
+              const playerNo = i + 1;
               const row = document.createElement('div');
               row.className = 'player-form';
-              row.innerHTML = `
-                    <%--<h5>플레이어 ${i + 1}</h5>--%>
-                    <div class="form-row mb-2">
-                        <div class="form-group col-md-4">
-                            <label>이름</label>
-                            <input type="text" name="names" class="form-control" placeholder="이름 입력" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>오늘의 타수</label>
-                            <input type="text" name="todayScores" class="form-control" placeholder="타수 입력" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>핸디</label>
-                            <input type="text" name="handicaps" class="form-control" placeholder="핸디 입력" required>
-                        </div>
-                    </div>
-                `;
+
+              // 문자열 연결을 사용하여 플레이어 번호를 삽입
+              row.innerHTML = '<h5>플레이어 ' + playerNo + '</h5>' +
+                  '<div class="form-row mb-2">' +
+                  '<div class="form-group col-md-4">' +
+                  '<label>이름</label>' +
+                  '<input type="text" name="names" class="form-control" placeholder="이름 입력" required>' +
+                  '</div>' +
+                  '<div class="form-group col-md-4">' +
+                  '<label>오늘의 타수</label>' +
+                  '<input type="text" name="todayScores" class="form-control" placeholder="타수 입력" required>' +
+                  '</div>' +
+                  '<div class="form-group col-md-4">' +
+                  '<label>핸디</label>' +
+                  '<input type="text" name="handicaps" class="form-control" placeholder="핸디 입력" required>' +
+                  '</div>' +
+                  '</div>';
+
               playersDiv.appendChild(row);
           }
 
