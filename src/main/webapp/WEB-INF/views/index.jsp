@@ -10,7 +10,7 @@
 </head>
 <body style="margin: 20px">
 <div class="container">
-    <h1>플레이어 총 금액</h1>
+    <h1>깊생골프</h1>
     <table class="table table-bordered">
         <thead>
         <tr>
