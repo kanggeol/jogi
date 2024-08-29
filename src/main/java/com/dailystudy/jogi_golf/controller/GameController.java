@@ -86,4 +86,11 @@ public class GameController {
         gameService.deleteGameResult(resultId);
         return "redirect:/results?date="+date;
     }
+
+    @GetMapping("/dateList")
+    public String showDateList(Model model) {
+        List<String> dates = gameService.getAllSavedDates(); // DB에서 저장된 날짜 목록을 가져오는 메소드
+        model.addAttribute("dates", dates);
+        return "dateList";
+    }
 }

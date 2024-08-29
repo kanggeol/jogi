@@ -29,4 +29,8 @@
         DELETE FROM game_results WHERE id = #{resultId}
     </delete>
 
+    <select id="findAllSavedDates" resultType="String">
+        SELECT DISTINCT g.game_date FROM game_results g
+    </select>
+
 </mapper>

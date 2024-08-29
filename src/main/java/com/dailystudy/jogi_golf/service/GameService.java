@@ -64,4 +64,8 @@ public class GameService {
     public void deleteGameResult(String resultId) {
         gameResultMapper.deleteGameResult(resultId);
     }
+
+    public List<String> getAllSavedDates() {
+        return gameResultMapper.findAllSavedDates();
+    }
 }

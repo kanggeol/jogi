@@ -16,4 +16,6 @@ public interface GameResultMapper {
     List<PlayerTotal> selectPlayerTotals();
 
     void deleteGameResult(@Param("resultId") String resultId);
+
+    List<String> findAllSavedDates();
 }

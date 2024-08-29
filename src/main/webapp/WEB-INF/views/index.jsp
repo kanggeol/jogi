@@ -29,44 +29,11 @@
                 <td>${player.totalAmount}원</td>
             </tr>
         </c:forEach>
-
         </tbody>
     </table>
     <a href="/gameForm" class="btn btn-primary mt-3">기록 저장하기</a>
-    <button type="button" class="btn btn-info mt-3" onclick="showDatePicker()">결과 조회하기</button>
-
-    <!-- 모달 형태로 날짜 선택 달력 표시 -->
-    <div id="datePickerModal" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">날짜 선택</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/results" method="get">
-                        <div class="form-group">
-                            <input type="date" id="date" name="date" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">조회하기</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <button type="button" class="btn btn-info mt-3" onclick="location.href='/dateList'">결과 조회하기</button>
 </div>
-
-<script>
-    function showDatePicker() {
-        $('#datePickerModal').modal('show');
-    }
-</script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <footer style="position: fixed; bottom: 10px; right: 10px;">
     <p>since 2024.8.29<br>ver 1.1</p>
