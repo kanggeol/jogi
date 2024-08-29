@@ -30,7 +30,7 @@
     </c:forEach>
     </tbody>
   </table>
-  <a href="/gameForm" class="btn btn-primary mt-3">다시 계산하기</a>
+<%--  <a href="/gameForm" class="btn btn-primary mt-3">다시 계산하기</a>--%>
   <form action="/results" method="get" class="mt-3">
     <div class="form-group">
       <label for="date">다른 날짜 조회</label>

@@ -63,7 +63,7 @@ public class GameController {
         model.addAttribute("results", results);
 
         // 결과 저장
-        gameService.deleteGameResult(gameDate);
+//        gameService.deleteGameResult(gameDate);
         for (GameResult result : results) {
             result.setGameDate(gameDate); // 날짜 설정
             gameService.saveGameResult(result);
