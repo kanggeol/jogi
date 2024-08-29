@@ -3890,3 +3890,264 @@ com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 'today
 |42 |2024-08-29 |강걸          |4    |-38000            |5              |-6       |
 |---|-----------|------------|-----|------------------|---------------|---------|
 
+[2024-08-29 17:59:59:441870][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.sqltiming - SELECT player_name AS playerName,
+               SUM(calculated_amount) AS totalAmount,
+               COUNT(*) AS participationCount
+        FROM game_results
+        GROUP BY player_name
+        ORDER BY totalAmount DESC
+ {executed in 4 msec}
+[2024-08-29 17:59:59:441870][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.resultsettable - 
+|------------|------------|-------------------|
+|player_name |totalamount |participationcount |
+|------------|------------|-------------------|
+|김민정         |132000      |2                  |
+|김영현         |4000        |2                  |
+|박준영         |-60000      |2                  |
+|강걸          |-76000      |2                  |
+|------------|------------|-------------------|
+
+[2024-08-29 18:00:04:447099][http-nio-8080-exec-3] [34mINFO [0;39m jdbc.sqltiming - SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
+        FROM game_results WHERE game_date = '2024-08-28'
+        order by rank asc
+ {executed in 2 msec}
+[2024-08-29 18:00:04:447100][http-nio-8080-exec-3] [34mINFO [0;39m jdbc.resultsettable - 
+|---|----------|------------|-----|------------------|---------------|---------|
+|id |game_date |player_name |rank |calculated_amount |original_score |handicap |
+|---|----------|------------|-----|------------------|---------------|---------|
+|---|----------|------------|-----|------------------|---------------|---------|
+
+[2024-08-29 18:00:05:448437][http-nio-8080-exec-6] [34mINFO [0;39m jdbc.sqltiming - SELECT player_name AS playerName,
+               SUM(calculated_amount) AS totalAmount,
+               COUNT(*) AS participationCount
+        FROM game_results
+        GROUP BY player_name
+        ORDER BY totalAmount DESC
+ {executed in 3 msec}
+[2024-08-29 18:00:05:448437][http-nio-8080-exec-6] [34mINFO [0;39m jdbc.resultsettable - 
+|------------|------------|-------------------|
+|player_name |totalamount |participationcount |
+|------------|------------|-------------------|
+|김민정         |132000      |2                  |
+|김영현         |4000        |2                  |
+|박준영         |-60000      |2                  |
+|강걸          |-76000      |2                  |
+|------------|------------|-------------------|
+
+[2024-08-29 18:00:11:454038][http-nio-8080-exec-7] [34mINFO [0;39m jdbc.sqltiming - SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
+        FROM game_results WHERE game_date = '2024-08-29'
+        order by rank asc
+ {executed in 2 msec}
+[2024-08-29 18:00:11:454038][http-nio-8080-exec-7] [34mINFO [0;39m jdbc.resultsettable - 
+|---|-----------|------------|-----|------------------|---------------|---------|
+|id |game_date  |player_name |rank |calculated_amount |original_score |handicap |
+|---|-----------|------------|-----|------------------|---------------|---------|
+|39 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|35 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|40 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|36 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|41 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|37 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|38 |2024-08-29 |강걸          |4    |-38000            |5              |-6       |
+|42 |2024-08-29 |강걸          |4    |-38000            |5              |-6       |
+|---|-----------|------------|-----|------------------|---------------|---------|
+
+[2024-08-29 18:00:13:455515][http-nio-8080-exec-8] [34mINFO [0;39m jdbc.sqltiming - DELETE FROM game_results WHERE id = '42'
+ {executed in 13 msec}
+[2024-08-29 18:00:13:455523][http-nio-8080-exec-9] [34mINFO [0;39m jdbc.sqltiming - SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
+        FROM game_results WHERE game_date = '2024-08-29'
+        order by rank asc
+ {executed in 4 msec}
+[2024-08-29 18:00:13:455523][http-nio-8080-exec-9] [34mINFO [0;39m jdbc.resultsettable - 
+|---|-----------|------------|-----|------------------|---------------|---------|
+|id |game_date  |player_name |rank |calculated_amount |original_score |handicap |
+|---|-----------|------------|-----|------------------|---------------|---------|
+|39 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|35 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|40 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|36 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|41 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|37 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|38 |2024-08-29 |강걸          |4    |-38000            |5              |-6       |
+|---|-----------|------------|-----|------------------|---------------|---------|
+
+[2024-08-29 18:00:13:456070][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.sqltiming - DELETE FROM game_results WHERE id = '38'
+ {executed in 3 msec}
+[2024-08-29 18:00:13:456076][http-nio-8080-exec-2] [34mINFO [0;39m jdbc.sqltiming - SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
+        FROM game_results WHERE game_date = '2024-08-29'
+        order by rank asc
+ {executed in 2 msec}
+[2024-08-29 18:00:13:456077][http-nio-8080-exec-2] [34mINFO [0;39m jdbc.resultsettable - 
+|---|-----------|------------|-----|------------------|---------------|---------|
+|id |game_date  |player_name |rank |calculated_amount |original_score |handicap |
+|---|-----------|------------|-----|------------------|---------------|---------|
+|39 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|35 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|40 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|36 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|41 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|37 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|---|-----------|------------|-----|------------------|---------------|---------|
+
+[2024-08-29 18:00:53:495818][SpringApplicationShutdownHook] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+[2024-08-29 18:00:53:495822][SpringApplicationShutdownHook] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+[2024-08-29 18:04:15:356][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Starting JogiGolfApplication using Java 17.0.10 on GEOL with PID 28264 (D:\dev\jogi_golf\build\classes\java\main started by xyritol in D:\dev\jogi_golf)
+[2024-08-29 18:04:15:357][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - The following 2 profiles are active: "local", "common"
+[2024-08-29 18:04:15:378][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-08-29 18:04:15:378][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-08-29 18:04:16:885][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[2024-08-29 18:04:16:891][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[2024-08-29 18:04:16:891][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2024-08-29 18:04:16:891][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.62]
+[2024-08-29 18:04:16:973][restartedMain] [34mINFO [0;39m o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+[2024-08-29 18:04:16:975][restartedMain] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2024-08-29 18:04:16:975][restartedMain] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 597 ms
+[2024-08-29 18:04:16:1186][restartedMain] [34mINFO [0;39m o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+[2024-08-29 18:04:16:1264][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[2024-08-29 18:04:16:1278][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[2024-08-29 18:04:16:1284][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Started JogiGolfApplication in 1.169 seconds (JVM running for 1.524)
+[2024-08-29 18:04:16:1329][http-nio-8080-exec-1] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-08-29 18:04:16:1329][http-nio-8080-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[2024-08-29 18:04:16:1329][http-nio-8080-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+[2024-08-29 18:04:16:1351][http-nio-8080-exec-1] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[2024-08-29 18:04:16:1486][http-nio-8080-exec-1] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[2024-08-29 18:04:16:1501][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.sqltiming - SELECT player_name AS playerName,
+               SUM(calculated_amount) AS totalAmount,
+               COUNT(*) AS participationCount
+        FROM game_results
+        GROUP BY player_name
+        ORDER BY totalAmount DESC
+ {executed in 4 msec}
+[2024-08-29 18:04:16:1508][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.resultsettable - 
+|------------|------------|-------------------|
+|player_name |totalamount |participationcount |
+|------------|------------|-------------------|
+|김민정         |132000      |2                  |
+|김영현         |4000        |2                  |
+|박준영         |-60000      |2                  |
+|------------|------------|-------------------|
+
+[2024-08-29 18:04:25:9638][http-nio-8080-exec-3] [34mINFO [0;39m jdbc.sqltiming - SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
+        FROM game_results WHERE game_date = '2024-08-29'
+        order by rank asc
+ {executed in 3 msec}
+[2024-08-29 18:04:25:9640][http-nio-8080-exec-3] [34mINFO [0;39m jdbc.resultsettable - 
+|---|-----------|------------|-----|------------------|---------------|---------|
+|id |game_date  |player_name |rank |calculated_amount |original_score |handicap |
+|---|-----------|------------|-----|------------------|---------------|---------|
+|39 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|35 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|40 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|36 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|41 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|37 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|---|-----------|------------|-----|------------------|---------------|---------|
+
+[2024-08-29 18:09:45:330025][SpringApplicationShutdownHook] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+[2024-08-29 18:09:45:330031][SpringApplicationShutdownHook] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+[2024-08-29 18:09:47:350][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Starting JogiGolfApplication using Java 17.0.10 on GEOL with PID 22228 (D:\dev\jogi_golf\build\classes\java\main started by xyritol in D:\dev\jogi_golf)
+[2024-08-29 18:09:47:351][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - The following 2 profiles are active: "local", "common"
+[2024-08-29 18:09:47:372][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-08-29 18:09:47:372][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-08-29 18:09:47:859][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[2024-08-29 18:09:47:865][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[2024-08-29 18:09:47:865][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2024-08-29 18:09:47:865][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.62]
+[2024-08-29 18:09:47:947][restartedMain] [34mINFO [0;39m o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+[2024-08-29 18:09:47:950][restartedMain] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2024-08-29 18:09:47:950][restartedMain] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 577 ms
+[2024-08-29 18:09:48:1161][restartedMain] [34mINFO [0;39m o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+[2024-08-29 18:09:48:1236][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[2024-08-29 18:09:48:1250][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[2024-08-29 18:09:48:1255][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Started JogiGolfApplication in 1.144 seconds (JVM running for 1.509)
+[2024-08-29 18:09:51:4277][http-nio-8080-exec-1] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-08-29 18:09:51:4277][http-nio-8080-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[2024-08-29 18:09:51:4278][http-nio-8080-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[2024-08-29 18:09:51:4300][http-nio-8080-exec-1] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[2024-08-29 18:09:51:4425][http-nio-8080-exec-1] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[2024-08-29 18:09:51:4438][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.sqltiming - SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
+        FROM game_results WHERE game_date = '2024-08-29'
+        order by rank asc
+ {executed in 4 msec}
+[2024-08-29 18:09:51:4445][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.resultsettable - 
+|---|-----------|------------|-----|------------------|---------------|---------|
+|id |game_date  |player_name |rank |calculated_amount |original_score |handicap |
+|---|-----------|------------|-----|------------------|---------------|---------|
+|39 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|35 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|40 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|36 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|41 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|37 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|---|-----------|------------|-----|------------------|---------------|---------|
+
+[2024-08-29 18:09:53:5986][http-nio-8080-exec-2] [34mINFO [0;39m jdbc.sqltiming - DELETE FROM game_results WHERE id = '37'
+ {executed in 3 msec}
+[2024-08-29 18:09:53:5998][http-nio-8080-exec-3] [34mINFO [0;39m jdbc.sqltiming - SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
+        FROM game_results WHERE game_date = '2024-08-29'
+        order by rank asc
+ {executed in 7 msec}
+[2024-08-29 18:09:53:5999][http-nio-8080-exec-3] [34mINFO [0;39m jdbc.resultsettable - 
+|---|-----------|------------|-----|------------------|---------------|---------|
+|id |game_date  |player_name |rank |calculated_amount |original_score |handicap |
+|---|-----------|------------|-----|------------------|---------------|---------|
+|39 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|35 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|40 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|36 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|41 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|---|-----------|------------|-----|------------------|---------------|---------|
+
+[2024-08-29 18:11:03:76189][SpringApplicationShutdownHook] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+[2024-08-29 18:11:03:76193][SpringApplicationShutdownHook] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+[2024-08-29 18:11:04:349][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Starting JogiGolfApplication using Java 17.0.10 on GEOL with PID 27432 (D:\dev\jogi_golf\build\classes\java\main started by xyritol in D:\dev\jogi_golf)
+[2024-08-29 18:11:04:350][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - The following 2 profiles are active: "local", "common"
+[2024-08-29 18:11:04:370][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-08-29 18:11:04:370][restartedMain] [34mINFO [0;39m o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-08-29 18:11:05:870][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[2024-08-29 18:11:05:876][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[2024-08-29 18:11:05:876][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2024-08-29 18:11:05:876][restartedMain] [34mINFO [0;39m o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.62]
+[2024-08-29 18:11:05:959][restartedMain] [34mINFO [0;39m o.apache.jasper.servlet.TldScanner - At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+[2024-08-29 18:11:05:961][restartedMain] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2024-08-29 18:11:05:962][restartedMain] [34mINFO [0;39m o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 592 ms
+[2024-08-29 18:11:05:1172][restartedMain] [34mINFO [0;39m o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+[2024-08-29 18:11:05:1251][restartedMain] [34mINFO [0;39m o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[2024-08-29 18:11:05:1266][restartedMain] [34mINFO [0;39m o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[2024-08-29 18:11:05:1271][restartedMain] [34mINFO [0;39m c.d.jogi_golf.JogiGolfApplication - Started JogiGolfApplication in 1.157 seconds (JVM running for 1.51)
+[2024-08-29 18:11:07:3056][http-nio-8080-exec-1] [34mINFO [0;39m o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-08-29 18:11:07:3057][http-nio-8080-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[2024-08-29 18:11:07:3057][http-nio-8080-exec-1] [34mINFO [0;39m o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+[2024-08-29 18:11:07:3083][http-nio-8080-exec-1] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[2024-08-29 18:11:07:3210][http-nio-8080-exec-1] [34mINFO [0;39m com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[2024-08-29 18:11:07:3223][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.sqltiming - SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
+        FROM game_results WHERE game_date = '2024-08-29'
+        order by rank asc
+ {executed in 3 msec}
+[2024-08-29 18:11:07:3229][http-nio-8080-exec-1] [34mINFO [0;39m jdbc.resultsettable - 
+|---|-----------|------------|-----|------------------|---------------|---------|
+|id |game_date  |player_name |rank |calculated_amount |original_score |handicap |
+|---|-----------|------------|-----|------------------|---------------|---------|
+|39 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|35 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|40 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|36 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|41 |2024-08-29 |박준영         |3    |-30000            |20             |10       |
+|---|-----------|------------|-----|------------------|---------------|---------|
+
+[2024-08-29 18:11:23:19305][http-nio-8080-exec-3] [34mINFO [0;39m jdbc.sqltiming - DELETE FROM game_results WHERE id = '41'
+ {executed in 11 msec}
+[2024-08-29 18:11:23:19312][http-nio-8080-exec-4] [34mINFO [0;39m jdbc.sqltiming - SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
+        FROM game_results WHERE game_date = '2024-08-29'
+        order by rank asc
+ {executed in 3 msec}
+[2024-08-29 18:11:23:19314][http-nio-8080-exec-4] [34mINFO [0;39m jdbc.resultsettable - 
+|---|-----------|------------|-----|------------------|---------------|---------|
+|id |game_date  |player_name |rank |calculated_amount |original_score |handicap |
+|---|-----------|------------|-----|------------------|---------------|---------|
+|39 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|35 |2024-08-29 |김민정         |1    |66000             |2              |4        |
+|40 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|36 |2024-08-29 |김영현         |2    |2000              |10             |4        |
+|---|-----------|------------|-----|------------------|---------------|---------|
+

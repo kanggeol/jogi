@@ -7,6 +7,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <title>게임 결과</title>
+  <script>
+      function confirmDelete(resultId, date) {
+          const password = prompt("비밀번호를 입력하세요:");
+
+          if (password === "12345") {
+              // 비밀번호 일치 시 삭제 요청 전송
+              const form = document.createElement('form');
+              form.method = 'POST';
+              form.action = '/deleteGameResult';
+
+              const resultIdInput = document.createElement('input');
+              resultIdInput.type = 'hidden';
+              resultIdInput.name = 'resultId';
+              resultIdInput.value = resultId;
+              form.appendChild(resultIdInput);
+
+              const dateInput = document.createElement('input');
+              dateInput.type = 'hidden';
+              dateInput.name = 'date';
+              dateInput.value = date;
+              form.appendChild(dateInput);
+
+              document.body.appendChild(form);
+              form.submit();
+          } else {
+              alert("비밀번호가 일치하지 않습니다. 삭제 실패.");
+          }
+      }
+  </script>
 </head>
 <body>
 <div class="container">
@@ -35,11 +64,7 @@
         <td>${result.calculatedAmount}원</td>
         <c:if test="${showDeleteButton}">
           <td>
-            <form action="/deleteGameResult" method="post" style="display:inline;">
-              <input type="hidden" name="resultId" value="${result.resultId}">
-              <input type="hidden" name="date" value="${gameDate}">
-              <button type="submit" class="btn btn-danger btn-sm">삭제</button>
-            </form>
+            <button class="btn btn-danger" onclick="confirmDelete('${result.resultId}', '${gameDate}')">삭제</button>
           </td>
         </c:if>
       </tr>
