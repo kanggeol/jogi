@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class Player {
     private String playerName;
-    private int todayScore;
+    private int originalScore;
+    private int todayScore; //핸디 적용한 스코어
     private int handicap;
 }

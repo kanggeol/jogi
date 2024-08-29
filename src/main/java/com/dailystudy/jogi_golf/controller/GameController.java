@@ -46,7 +46,7 @@ public class GameController {
             @RequestParam("names") List<String> names,
             @RequestParam("todayScores") List<Integer> todayScores,
             @RequestParam("handicaps") List<Integer> handicaps,
-            @RequestParam("gameDate") String gameDate, // 날짜도 받아옵니다.
+            @RequestParam("gameDate") String gameDate,
             Model model) {
 
         List<Player> players = new ArrayList<>();
@@ -63,7 +63,6 @@ public class GameController {
         model.addAttribute("results", results);
 
         // 결과 저장
-//        gameService.deleteGameResult(gameDate);
         for (GameResult result : results) {
             result.setGameDate(gameDate); // 날짜 설정
             gameService.saveGameResult(result);
@@ -78,6 +77,13 @@ public class GameController {
         System.out.println("======results "+results);
         model.addAttribute("results", results);
         model.addAttribute("gameDate", date);
+        model.addAttribute("showDeleteButton", true);
         return "gameResult";
+    }
+
+    @PostMapping("/deleteGameResult")
+    public String deleteGameResult(@RequestParam("resultId") String resultId, @RequestParam("date") String date) {
+        gameService.deleteGameResult(resultId);
+        return "redirect:/results?date="+date;
     }
 }

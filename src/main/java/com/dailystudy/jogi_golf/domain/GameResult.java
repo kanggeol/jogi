@@ -4,14 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class GameResult {
+    private int resultId;
     private String gameDate;
     private String playerName;
+    private int originalScore;
+    private int todayScore; //핸디 적용한 스코어
+    private int handicap;
     private int rank;
     private int calculatedAmount;
 }

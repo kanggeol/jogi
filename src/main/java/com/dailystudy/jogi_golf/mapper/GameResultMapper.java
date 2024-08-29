@@ -15,5 +15,5 @@ public interface GameResultMapper {
 
     List<PlayerTotal> selectPlayerTotals();
 
-    void deleteGameResult(@Param("gameDate") String gameDate);
+    void deleteGameResult(@Param("resultId") String resultId);
 }

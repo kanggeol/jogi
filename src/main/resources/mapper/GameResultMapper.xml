@@ -5,13 +5,13 @@
 
 <mapper namespace="com.dailystudy.jogi_golf.mapper.GameResultMapper">
 
-    <insert id="insertGameResult">
-        INSERT INTO game_results (game_date, player_name, rank, calculated_amount)
-        VALUES (#{gameDate}, #{playerName}, #{rank}, #{calculatedAmount})
+    <insert id="insertGameResult" parameterType="com.dailystudy.jogi_golf.domain.GameResult">
+        INSERT INTO game_results (game_date, player_name, rank, calculated_amount, original_score, handicap)
+        VALUES (#{gameDate}, #{playerName}, #{rank}, #{calculatedAmount}, #{originalScore}, #{handicap})
     </insert>
 
     <select id="selectGameResultsByDate" resultType="com.dailystudy.jogi_golf.domain.GameResult">
-        SELECT game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount
+        SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
         FROM game_results WHERE game_date = #{gameDate}
         order by rank asc
     </select>
@@ -26,7 +26,7 @@
     </select>
 
     <delete id="deleteGameResult" parameterType="String">
-        DELETE FROM game_results WHERE game_date = #{gameDate}
+        DELETE FROM game_results WHERE id = #{resultId}
     </delete>
 
 </mapper>
