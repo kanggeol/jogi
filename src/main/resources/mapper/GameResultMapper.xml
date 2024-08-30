@@ -19,7 +19,7 @@
         SELECT gr.id as resultId, gr.player_name as playerName, gr.rank, gr.calculated_amount as calculatedAmount,
                gr.original_score as originalScore, gr.handicap as handicap, g.game_date as gameDate
         FROM game_results gr
-                 JOIN games g ON gr.game_id = g.game_id
+                 INNER JOIN games g ON gr.game_id = g.game_id
         WHERE g.game_date = #{gameDate}
         ORDER BY gr.rank ASC
     </select>
@@ -38,7 +38,9 @@
     </delete>
 
     <select id="findAllSavedDates" resultType="String">
-        SELECT DISTINCT game_date FROM games
+        SELECT DISTINCT g.game_date
+        FROM games g
+                 INNER JOIN game_results gr ON g.game_id = gr.game_id
     </select>
 
 </mapper>
