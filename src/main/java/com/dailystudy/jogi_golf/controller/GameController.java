@@ -60,6 +60,13 @@ public class GameController {
 
         // 게임 결과 계산
         List<GameResult> results = gameService.calculateGameResults(players, gameFee);
+
+        // 핸디캡 조정 로직 추가
+        for (GameResult result : results) {
+            int adjustment = result.getCalculatedAmount() > 0 ? -1 : 1; // 금액이 +면 핸디캡 감소, -면 핸디캡 증가
+            gameService.updatePlayerHandicap(result.getPlayerName(), adjustment);
+        }
+
         // 결과 저장
         int gameId = gameService.saveGameId(gameDate);
         for (GameResult result : results) {
@@ -93,4 +100,5 @@ public class GameController {
         model.addAttribute("dates", dates);
         return "dateList";
     }
+
 }

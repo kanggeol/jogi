@@ -17,7 +17,7 @@
 
     <select id="selectGameResultsByDate" resultType="com.dailystudy.jogi_golf.domain.GameResult">
         SELECT gr.id as resultId, gr.player_name as playerName, gr.rank, gr.calculated_amount as calculatedAmount,
-               gr.original_score as originalScore, gr.handicap as handicap, g.game_date as gameDate
+               gr.original_score as originalScore, gr.handicap as handicap
         FROM game_results gr
                  INNER JOIN games g ON gr.game_id = g.game_id
         WHERE g.game_date = #{gameDate}

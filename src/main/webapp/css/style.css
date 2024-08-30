@@ -1,0 +1,11 @@
+.player-form {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+.player-form h5 {
+    margin-bottom: 10px;
+    font-weight: bold;
+}

@@ -5,6 +5,7 @@ import com.dailystudy.jogi_golf.domain.GameResult;
 import com.dailystudy.jogi_golf.domain.Player;
 import com.dailystudy.jogi_golf.domain.PlayerTotal;
 import com.dailystudy.jogi_golf.mapper.GameResultMapper;
+import com.dailystudy.jogi_golf.mapper.PlayerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ public class GameService {
 
     @Autowired
     private GameResultMapper gameResultMapper;
+    @Autowired
+    private PlayerMapper playerMapper;
 
     public List<GameResult> calculateGameResults(List<Player> players, int gameFee) {
         // 원래 타수 저장 및 실제 타수 계산
@@ -75,4 +78,20 @@ public class GameService {
     public List<String> getAllSavedDates() {
         return gameResultMapper.findAllSavedDates();
     }
+
+    public void updatePlayerHandicap(String playerName, int adjustment) {
+        playerMapper.updateHandicap(playerName, adjustment);
+    }
+
+    public int getPlayerHandicap(String playerName) {
+        return playerMapper.getHandicapByPlayerName(playerName);
+    }
+
+    public void ensurePlayerExists(String playerName) {
+        Integer handicap = playerMapper.getHandicapByPlayerName(playerName);
+        if (handicap == null) {
+            playerMapper.insertPlayer(playerName, 20); // 기본 핸디캡 0으로 초기화
+        }
+    }
+
 }
