@@ -1,5 +1,6 @@
 package com.dailystudy.jogi_golf.service;
 
+import com.dailystudy.jogi_golf.domain.Game;
 import com.dailystudy.jogi_golf.domain.GameResult;
 import com.dailystudy.jogi_golf.domain.Player;
 import com.dailystudy.jogi_golf.domain.PlayerTotal;
@@ -48,9 +49,15 @@ public class GameService {
         return results;
     }
 
-
     public void saveGameResult(GameResult gameResult) {
         gameResultMapper.insertGameResult(gameResult);
+    }
+
+    public int saveGameId(String gameDate) {
+        Game game = new Game();
+        game.setGameDate(gameDate);
+        gameResultMapper.insertGameId(game);
+        return game.getGameId();
     }
 
     public List<GameResult> getGameResultsByDate(String gameDate) {

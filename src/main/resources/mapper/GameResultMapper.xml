@@ -5,15 +5,23 @@
 
 <mapper namespace="com.dailystudy.jogi_golf.mapper.GameResultMapper">
 
+    <insert id="insertGameId" parameterType="map" useGeneratedKeys="true" keyProperty="gameId">
+        INSERT INTO games (game_date)
+        VALUES (#{gameDate})
+    </insert>
+
     <insert id="insertGameResult" parameterType="com.dailystudy.jogi_golf.domain.GameResult">
-        INSERT INTO game_results (game_date, player_name, rank, calculated_amount, original_score, handicap)
-        VALUES (#{gameDate}, #{playerName}, #{rank}, #{calculatedAmount}, #{originalScore}, #{handicap})
+        INSERT INTO game_results (player_name, rank, calculated_amount, original_score, handicap, game_id)
+        VALUES (#{playerName}, #{rank}, #{calculatedAmount}, #{originalScore}, #{handicap}, #{gameId})
     </insert>
 
     <select id="selectGameResultsByDate" resultType="com.dailystudy.jogi_golf.domain.GameResult">
-        SELECT id as resultId, game_date as gameDate, player_name as playerName, rank, calculated_amount as calculatedAmount,original_score as originalScore, handicap as handicap
-        FROM game_results WHERE game_date = #{gameDate}
-        order by rank asc
+        SELECT gr.id as resultId, gr.player_name as playerName, gr.rank, gr.calculated_amount as calculatedAmount,
+               gr.original_score as originalScore, gr.handicap as handicap, g.game_date as gameDate
+        FROM game_results gr
+                 JOIN games g ON gr.game_id = g.game_id
+        WHERE g.game_date = #{gameDate}
+        ORDER BY gr.rank ASC
     </select>
 
     <select id="selectPlayerTotals" resultType="com.dailystudy.jogi_golf.domain.PlayerTotal">
@@ -30,7 +38,7 @@
     </delete>
 
     <select id="findAllSavedDates" resultType="String">
-        SELECT DISTINCT g.game_date FROM game_results g
+        SELECT DISTINCT game_date FROM games
     </select>
 
 </mapper>

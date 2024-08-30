@@ -4,11 +4,11 @@ import com.dailystudy.jogi_golf.domain.GameResult;
 import com.dailystudy.jogi_golf.domain.Player;
 import com.dailystudy.jogi_golf.domain.PlayerTotal;
 import com.dailystudy.jogi_golf.service.GameService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -60,14 +60,14 @@ public class GameController {
 
         // 게임 결과 계산
         List<GameResult> results = gameService.calculateGameResults(players, gameFee);
-        model.addAttribute("results", results);
-
         // 결과 저장
+        int gameId = gameService.saveGameId(gameDate);
         for (GameResult result : results) {
-            result.setGameDate(gameDate); // 날짜 설정
+            result.setGameId(gameId);
             gameService.saveGameResult(result);
         }
 
+        model.addAttribute("results", results);
         return "gameResult";
     }
 
