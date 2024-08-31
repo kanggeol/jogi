@@ -1,7 +1,7 @@
 function ensurePlayerExistsAndFetchHandicap(playerNameInput, handicapInput) {
-    const playerName = playerNameInput.value;
+    const playerName = playerNameInput.value.trim();
 
-    if (playerName.trim() === '') {
+    if (playerName === '') {
         return; // 이름이 비어있으면 핸디캡을 업데이트하지 않음
     }
 
@@ -9,7 +9,7 @@ function ensurePlayerExistsAndFetchHandicap(playerNameInput, handicapInput) {
         .then(response => response.json())
         .then(data => {
             if (data.exists) {
-                handicapInput.value = data.handicap;
+                handicapInput.value = data.handicap; // 기존 핸디캡 설정
             } else {
                 handicapInput.value = 20; // 새로운 플레이어의 경우 기본 핸디캡 20으로 설정
             }
@@ -18,6 +18,7 @@ function ensurePlayerExistsAndFetchHandicap(playerNameInput, handicapInput) {
             console.error('Error fetching player handicap:', error);
         });
 }
+
 
 function generatePlayerForms() {
     const playerCount = parseInt(document.getElementById('playerCount').value, 10);

@@ -33,7 +33,7 @@
           const resultId = modal.dataset.resultId;
           const date = modal.dataset.date;
 
-          if (password === "12345") {
+          if (password === "0") {
               // 비밀번호 일치 시 삭제 요청 전송
               const form = document.createElement('form');
               form.method = 'POST';

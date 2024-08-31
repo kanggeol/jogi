@@ -4,6 +4,7 @@ import com.dailystudy.jogi_golf.domain.GameResult;
 import com.dailystudy.jogi_golf.domain.Player;
 import com.dailystudy.jogi_golf.domain.PlayerTotal;
 import com.dailystudy.jogi_golf.service.GameService;
+import com.dailystudy.jogi_golf.service.PlayerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +15,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
 @Controller
 public class GameController {
     private final GameService gameService;
+    private final PlayerService playerService;
 
-    public GameController(GameService gameService) {
+    public GameController(GameService gameService, PlayerService playerService) {
         this.gameService = gameService;
+        this.playerService = playerService;
     }
 
     @GetMapping("/")
@@ -61,10 +65,11 @@ public class GameController {
         // 게임 결과 계산
         List<GameResult> results = gameService.calculateGameResults(players, gameFee);
 
-        // 핸디캡 조정 로직 추가
+        // 핸디캡 조정 및 업데이트
         for (GameResult result : results) {
-            int adjustment = result.getCalculatedAmount() > 0 ? -1 : 1; // 금액이 +면 핸디캡 감소, -면 핸디캡 증가
-            gameService.updatePlayerHandicap(result.getPlayerName(), adjustment);
+            int adjustment = (int) Math.floor(Math.abs(result.getCalculatedAmount()) / 10000); // 금액의 절대값을 10000으로 나눈 후 내림
+            int newHandicap = result.getHandicap() + (result.getCalculatedAmount() > 0 ? -adjustment : adjustment); // 금액이 +면 핸디캡 감소, -면 핸디캡 증가
+            playerService.updateHandicap(result.getPlayerName(), newHandicap);
         }
 
         // 결과 저장
@@ -75,13 +80,13 @@ public class GameController {
         }
 
         model.addAttribute("results", results);
+        model.addAttribute("gameDate", gameDate);
         return "gameResult";
     }
 
     @GetMapping("/results")
     public String getResultsByDate(@RequestParam("date") String date, Model model) {
         List<GameResult> results = gameService.getGameResultsByDate(date);
-        System.out.println("======results "+results);
         model.addAttribute("results", results);
         model.addAttribute("gameDate", date);
         model.addAttribute("showDeleteButton", true);
@@ -91,14 +96,13 @@ public class GameController {
     @PostMapping("/deleteGameResult")
     public String deleteGameResult(@RequestParam("resultId") String resultId, @RequestParam("date") String date) {
         gameService.deleteGameResult(resultId);
-        return "redirect:/results?date="+date;
+        return "redirect:/results?date=" + date;
     }
 
     @GetMapping("/dateList")
     public String showDateList(Model model) {
-        List<String> dates = gameService.getAllSavedDates(); // DB에서 저장된 날짜 목록을 가져오는 메소드
+        List<String> dates = gameService.getAllSavedDates();
         model.addAttribute("dates", dates);
         return "dateList";
     }
-
 }
