@@ -11,7 +11,7 @@ function ensurePlayerExistsAndFetchHandicap(playerNameInput, handicapInput) {
             if (data.exists) {
                 handicapInput.value = data.handicap; // 기존 핸디캡 설정
             } else {
-                handicapInput.value = 20; // 새로운 플레이어의 경우 기본 핸디캡 20으로 설정
+                handicapInput.value = 0; // 새로운 플레이어의 경우 기본 핸디캡 0으로 설정
             }
         })
         .catch(error => {

@@ -67,8 +67,21 @@ public class GameController {
 
         // 핸디캡 조정 및 업데이트
         for (GameResult result : results) {
-            int adjustment = (int) Math.floor(Math.abs(result.getCalculatedAmount()) / 10000); // 금액의 절대값을 10000으로 나눈 후 내림
-            int newHandicap = result.getHandicap() + (result.getCalculatedAmount() > 0 ? -adjustment : adjustment); // 금액이 +면 핸디캡 감소, -면 핸디캡 증가
+            int calculatedAmount = Math.abs(result.getCalculatedAmount());
+            int adjustment = 0;
+
+            if (calculatedAmount > 100000) {
+                adjustment = 4;
+            } else if (calculatedAmount > 50000) {
+                adjustment = 3;
+            } else if (calculatedAmount > 10000) {
+                adjustment = 2;
+            } else {
+                adjustment = 0;
+            }
+
+            // 핸디캡을 조정 (양수 금액이면 핸디캡 감소, 음수 금액이면 핸디캡 증가)
+            int newHandicap = result.getHandicap() + (result.getCalculatedAmount() > 0 ? -adjustment : adjustment);
             playerService.updateHandicap(result.getPlayerName(), newHandicap);
         }
 

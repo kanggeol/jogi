@@ -90,7 +90,7 @@ public class GameService {
     public void ensurePlayerExists(String playerName) {
         Integer handicap = playerMapper.getHandicapByPlayerName(playerName);
         if (handicap == null) {
-            playerMapper.insertPlayer(playerName, 20); // 기본 핸디캡 0으로 초기화
+            playerMapper.insertPlayer(playerName, 0); // 기본 핸디캡 0으로 초기화
         }
     }
 
