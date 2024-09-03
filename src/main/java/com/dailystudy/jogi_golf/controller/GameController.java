@@ -44,6 +44,39 @@ public class GameController {
         return "gameForm";
     }
 
+    @PostMapping("/saveGame")
+    public String saveGame(
+            @RequestParam("gameFee") int gameFee,
+            @RequestParam("names") List<String> names,
+            @RequestParam("handicaps") List<Integer> handicaps,
+            @RequestParam("gameDate") String gameDate,
+            Model model) {
+
+        List<GameResult> results = new ArrayList<>();
+        int gameId = gameService.saveGameId(gameDate);
+
+        for (int i = 0; i < names.size(); i++) {
+            GameResult result = new GameResult();
+            result.setGameId(gameId);
+            result.setPlayerName(names.get(i));
+            result.setHandicap(handicaps.get(i));
+            result.setOriginalScore(0); // Assuming default as 0 if not provided
+            result.setTodayScore(0); // Assuming default as 0 if not provided
+            result.setRank(0); // Assuming default as 0 if not provided
+            result.setCalculatedAmount(0); // Assuming default as 0 if not provided
+            results.add(result);
+        }
+
+        // 게임 결과 저장
+        for (GameResult result : results) {
+            gameService.saveGameResult(result);
+        }
+
+        model.addAttribute("gameId", gameId);
+        model.addAttribute("gameDate", gameDate);
+        return "gameResult";
+    }
+
     @PostMapping("/calculate")
     public String calculate(
             @RequestParam("gameFee") int gameFee,

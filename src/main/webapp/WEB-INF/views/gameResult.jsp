@@ -21,8 +21,8 @@
           // 엔터 키를 누르면 삭제 확인
           document.getElementById('passwordInput').addEventListener('keypress', function(event) {
               if (event.key === 'Enter') {
-                  event.preventDefault(); // 폼 제출을 방지 (필요시)
-                  confirmDelete(); // 삭제 확인 함수 호출
+                  event.preventDefault();
+                  confirmDelete();
               }
           });
       }
@@ -54,7 +54,6 @@
               document.body.appendChild(form);
               form.submit();
           } else {
-              // 비밀번호 불일치 시 메시지 표시
               document.getElementById('deleteMessage').style.display = 'block';
           }
       }
@@ -94,6 +93,34 @@
     </c:forEach>
     </tbody>
   </table>
+
+  <!-- 오늘의 타수 입력 폼 -->
+  <form action="/saveScores" method="post">
+    <h3>오늘의 타수 입력</h3>
+    <input type="hidden" name="gameId" value="${gameId}">
+    <input type="hidden" name="gameDate" value="${gameDate}">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>이름</th>
+        <th>오늘의 타수</th>
+      </tr>
+      </thead>
+      <tbody>
+      <c:forEach var="result" items="${results}">
+        <tr>
+          <td>${result.playerName}</td>
+          <td>
+            <input type="hidden" name="playerNames" value="${result.playerName}">
+            <input type="number" name="todayScores" placeholder="타수 입력" class="form-control" required>
+          </td>
+        </tr>
+      </c:forEach>
+      </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">타수 저장</button>
+  </form>
+
   <a href="/" class="btn btn-primary mt-3">총금액 확인</a>
 </div>
 
@@ -121,10 +148,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<footer style="position: fixed; bottom: 10px; right: 10px;">
-  <p>since 2024.8.29<br>ver 1.1</p>
-</footer>
 
 </body>
 </html>

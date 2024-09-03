@@ -12,4 +12,5 @@ public class Player {
     private int originalScore;
     private int todayScore; //핸디 적용한 스코어
     private int handicap;
+    private int gameId;
 }

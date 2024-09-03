@@ -6,22 +6,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <title>날짜 선택</title>
+  <title>결과 조회</title>
 </head>
-<body>
+<body style="margin: 20px">
 <div class="container">
-  <h1>날짜 선택</h1>
+  <h1>결과 조회</h1>
   <table class="table table-bordered">
     <thead>
     <tr>
       <th>날짜</th>
+      <th>행사 삭제</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach var="date" items="${dates}">
       <tr>
+        <td>${date}</td>
         <td>
-          <a href="/results?date=${date}" class="btn btn-link">${date}</a>
+          <a href="/results?date=${date}" class="btn btn-info">결과 보기</a>
         </td>
       </tr>
     </c:forEach>
@@ -29,5 +31,9 @@
   </table>
   <a href="/" class="btn btn-primary mt-3">홈으로</a>
 </div>
+
+<footer style="position: fixed; bottom: 10px; right: 10px;">
+  <p>since 2024.8.29<br>ver 1.1</p>
+</footer>
 </body>
 </html>

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>총금액 순위</title>
+    <title>깊생골프</title>
 </head>
 <body style="margin: 20px">
 <div class="container">
@@ -31,12 +31,12 @@
         </c:forEach>
         </tbody>
     </table>
-    <a href="/gameForm" class="btn btn-primary mt-3">기록 저장하기</a>
+    <a href="/gameForm" class="btn btn-primary mt-3">게임 생성하기</a>
     <button type="button" class="btn btn-info mt-3" onclick="location.href='/dateList'">결과 조회하기</button>
 </div>
 
 <footer style="position: fixed; bottom: 10px; right: 10px;">
-    <p>since 2024.8.29<br>ver 1.1</p>
+    <p>since 2024.8.29<br>ver 1.2</p>
 </footer>
 
 </body>

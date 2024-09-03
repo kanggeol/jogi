@@ -19,7 +19,6 @@ function ensurePlayerExistsAndFetchHandicap(playerNameInput, handicapInput) {
         });
 }
 
-
 function generatePlayerForms() {
     const playerCount = parseInt(document.getElementById('playerCount').value, 10);
     const playersDiv = document.getElementById('players');
@@ -37,10 +36,6 @@ function generatePlayerForms() {
             '<div class="form-group col-md-4">' +
             '<label>이름</label>' +
             '<input type="text" name="names" class="form-control player-name" placeholder="이름 입력" required>' +
-            '</div>' +
-            '<div class="form-group col-md-4">' +
-            '<label>오늘의 타수</label>' +
-            '<input type="text" name="todayScores" class="form-control" placeholder="타수 입력" required>' +
             '</div>' +
             '<div class="form-group col-md-4">' +
             '<label>핸디</label>' +
