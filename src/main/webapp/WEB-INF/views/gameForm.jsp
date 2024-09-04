@@ -6,28 +6,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Game Calculator</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <script src="${pageContext.request.contextPath}/js/main.js" defer></script>
+    <title>플레이어 추가</title>
+    <script>
+        function addPlayer() {
+            const playerContainer = document.getElementById('players');
+            const playerCount = playerContainer.children.length;
+            const playerHTML = `
+                <div class="form-group">
+                    <label for="playerName${playerCount}">플레이어 이름</label>
+                    <input type="text" class="form-control" id="playerName${playerCount}" name="playerNames" required>
+                </div>
+                <div class="form-group">
+                    <label for="handicap${playerCount}">핸디캡</label>
+                    <input type="number" class="form-control" id="handicap${playerCount}" name="handicaps" value="0" required>
+                </div>`;
+            playerContainer.insertAdjacentHTML('beforeend', playerHTML);
+        }
+
+        function enableSaveButton() {
+            document.getElementById('calculateButton').disabled = false;
+        }
+    </script>
 </head>
 <body>
 <div class="container" style="padding: 20px">
-    <form action="/saveGame" method="post">
-        <div class="form-group">
-            <label for="gameDate">날짜</label>
-            <input type="date" class="form-control" id="gameDate" name="gameDate" value="${today}" required>
-        </div>
-        <div class="form-group">
-            <label for="gameFee">타당 게임비</label>
-            <input type="number" class="form-control" id="gameFee" name="gameFee" value="2000" required>
-        </div>
-        <div class="form-group">
-            <label for="playerCount">인원수</label>
-            <input type="number" class="form-control" id="playerCount" name="playerCount" min="1" max="10" value="4" required>
-        </div>
-        <button type="button" class="btn btn-primary" id="generateButton">폼 생성하기</button>
-        <div id="players" class="mt-3"></div>
-        <button type="submit" class="btn btn-success mt-3" id="calculateButton" disabled>게임 저장하기</button>
+    <h1>플레이어 추가</h1>
+    <form action="/savePlayers" method="post">
+        <input type="hidden" name="gameId" value="${gameId}">
+        <div id="players"></div>
+        <button type="button" class="btn btn-primary" onclick="addPlayer()">플레이어 추가</button>
+        <button type="submit" class="btn btn-success mt-3" onclick="enableSaveButton()">플레이어 저장하기</button>
     </form>
 </div>
 </body>

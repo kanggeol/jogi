@@ -15,7 +15,7 @@
     <thead>
     <tr>
       <th>날짜</th>
-      <th>행사 삭제</th>
+      <th>결과 보기</th>
     </tr>
     </thead>
     <tbody>

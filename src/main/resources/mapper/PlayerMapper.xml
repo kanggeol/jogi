@@ -14,8 +14,12 @@
         WHERE player_name = #{playerName}
     </update>
 
-    <insert id="insertPlayer">
+    <insert id="insertHandicap">
         INSERT INTO players (player_name, handicap)
         VALUES (#{playerName}, #{handicap})
+    </insert>
+
+    <insert id="insertPlayer">
+        INSERT INTO game_results (game_id, player_name, handicap) VALUES (#{gameId}, #{playerName}, #{handicap})
     </insert>
 </mapper>

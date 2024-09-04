@@ -5,6 +5,7 @@ import com.dailystudy.jogi_golf.domain.Player;
 import com.dailystudy.jogi_golf.domain.PlayerTotal;
 import com.dailystudy.jogi_golf.service.GameService;
 import com.dailystudy.jogi_golf.service.PlayerService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class GameController {
@@ -33,6 +36,28 @@ public class GameController {
         return "index";
     }
 
+    @GetMapping("/createGame")
+    public String createGame() {
+        return "createGame";
+    }
+
+    @PostMapping("/saveGame")
+    public String saveGame(@RequestParam("gameDate") String gameDate,
+                           @RequestParam("gameFee") int gameFee, Model model) {
+        int gameId = gameService.createGame(gameDate, gameFee);
+        model.addAttribute("gameId", gameId);
+        return "redirect:/gameForm?gameId=" + gameId;
+    }
+
+    @PostMapping("/savePlayers")
+    public String savePlayers(@RequestParam("gameId") int gameId,
+                              @RequestParam("playerNames") List<String> playerNames,
+                              @RequestParam("handicaps") List<Integer> handicaps) {
+        System.out.println("=======gameId "+gameId);
+        playerService.savePlayers(gameId, playerNames, handicaps);
+        return "redirect:/gameResult?gameId=" + gameId;
+    }
+
     @GetMapping("/gameForm")
     public String showGameForm(Model model) {
         // 현재 날짜를 yyyy-MM-dd 형식으로 포맷
@@ -44,38 +69,48 @@ public class GameController {
         return "gameForm";
     }
 
-    @PostMapping("/saveGame")
-    public String saveGame(
-            @RequestParam("gameFee") int gameFee,
-            @RequestParam("names") List<String> names,
-            @RequestParam("handicaps") List<Integer> handicaps,
-            @RequestParam("gameDate") String gameDate,
-            Model model) {
-
-        List<GameResult> results = new ArrayList<>();
-        int gameId = gameService.saveGameId(gameDate);
-
-        for (int i = 0; i < names.size(); i++) {
-            GameResult result = new GameResult();
-            result.setGameId(gameId);
-            result.setPlayerName(names.get(i));
-            result.setHandicap(handicaps.get(i));
-            result.setOriginalScore(0); // Assuming default as 0 if not provided
-            result.setTodayScore(0); // Assuming default as 0 if not provided
-            result.setRank(0); // Assuming default as 0 if not provided
-            result.setCalculatedAmount(0); // Assuming default as 0 if not provided
-            results.add(result);
-        }
-
-        // 게임 결과 저장
-        for (GameResult result : results) {
-            gameService.saveGameResult(result);
-        }
-
-        model.addAttribute("gameId", gameId);
-        model.addAttribute("gameDate", gameDate);
-        return "gameResult";
+    @GetMapping("/player-handicap")
+    public ResponseEntity<Map<String, Object>> getPlayerHandicap(@RequestParam("playerName") String playerName) {
+        Map<String, Object> response = new HashMap<>();
+        gameService.ensurePlayerExists(playerName); // Ensure player exists
+        int handicap = gameService.getPlayerHandicap(playerName);
+        response.put("exists", true); // Assumes player exists
+        response.put("handicap", handicap);
+        return ResponseEntity.ok(response);
     }
+
+//    @PostMapping("/saveGame")
+//    public String saveGame(
+//            @RequestParam("gameFee") int gameFee,
+//            @RequestParam("names") List<String> names,
+//            @RequestParam("handicaps") List<Integer> handicaps,
+//            @RequestParam("gameDate") String gameDate,
+//            Model model) {
+//
+//        List<GameResult> results = new ArrayList<>();
+//        int gameId = gameService.saveGameId(gameDate);
+//
+//        for (int i = 0; i < names.size(); i++) {
+//            GameResult result = new GameResult();
+//            result.setGameId(gameId);
+//            result.setPlayerName(names.get(i));
+//            result.setHandicap(handicaps.get(i));
+//            result.setOriginalScore(0); // Assuming default as 0 if not provided
+//            result.setTodayScore(0); // Assuming default as 0 if not provided
+//            result.setRank(0); // Assuming default as 0 if not provided
+//            result.setCalculatedAmount(0); // Assuming default as 0 if not provided
+//            results.add(result);
+//        }
+//
+//        // 게임 결과 저장
+//        for (GameResult result : results) {
+//            gameService.saveGameResult(result);
+//        }
+//
+//        model.addAttribute("gameId", gameId);
+//        model.addAttribute("gameDate", gameDate);
+//        return "gameResult";
+//    }
 
     @PostMapping("/calculate")
     public String calculate(

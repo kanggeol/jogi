@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class Game {
     private int gameId;
     private String gameDate;
-    private String description;
+    private int gameFee;
 }

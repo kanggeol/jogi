@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class PlayerController {
+public class GameApiController {
 
     @Autowired
     private GameService gameService;
@@ -18,15 +18,7 @@ public class PlayerController {
     @Autowired
     private PlayerMapper playerMapper;
 
-    @GetMapping("/player-handicap")
-    public ResponseEntity<Map<String, Object>> getPlayerHandicap(@RequestParam("playerName") String playerName) {
-        Map<String, Object> response = new HashMap<>();
-        gameService.ensurePlayerExists(playerName); // Ensure player exists
-        int handicap = gameService.getPlayerHandicap(playerName);
-        response.put("exists", true); // Assumes player exists
-        response.put("handicap", handicap);
-        return ResponseEntity.ok(response);
-    }
+
 
     @PostMapping("/update-handicap")
     @ResponseBody
