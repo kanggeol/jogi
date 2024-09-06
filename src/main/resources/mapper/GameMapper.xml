@@ -4,7 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dailystudy.jogi_golf.mapper.GameMapper">
-<insert id="insertGame" parameterType="map" useGeneratedKeys="true" keyProperty="gameId">
-    INSERT INTO games (game_date, game_fee) VALUES (#{gameDate}, #{gameFee})
-</insert>
+    <insert id="insertGame" parameterType="Game">
+        INSERT INTO games (game_date, description)
+        VALUES (#{gameDate}, #{description});
+    </insert>
+
+    <select id="getAllGames" resultType="Game">
+        SELECT game_id, game_date, game_fee FROM games;
+    </select>
+
+    <select id="getGameById" parameterType="int" resultType="Game">
+        SELECT * FROM games WHERE game_id = #{gameId};
+    </select>
 </mapper>

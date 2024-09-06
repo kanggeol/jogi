@@ -4,22 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dailystudy.jogi_golf.mapper.PlayerMapper">
-    <select id="getHandicapByPlayerName" resultType="Integer">
-        SELECT handicap FROM players WHERE player_name = #{playerName}
+    <insert id="insertPlayer" parameterType="Player">
+        INSERT INTO players (player_name, handicap)
+        VALUES (#{playerName}, #{handicap});
+    </insert>
+
+    <select id="getPlayersByGameId" parameterType="int" resultType="Player">
+        SELECT * FROM players WHERE game_id = #{gameId};
     </select>
 
-    <update id="updateHandicap">
+    <update id="updatePlayer" parameterType="Player">
         UPDATE players
-        SET handicap = #{handicap}
-        WHERE player_name = #{playerName}
+        SET player_name = #{playerName}, handicap = #{handicap}
+        WHERE player_id = #{id};
     </update>
 
-    <insert id="insertHandicap">
-        INSERT INTO players (player_name, handicap)
-        VALUES (#{playerName}, #{handicap})
-    </insert>
-
-    <insert id="insertPlayer">
-        INSERT INTO game_results (game_id, player_name, handicap) VALUES (#{gameId}, #{playerName}, #{handicap})
-    </insert>
+    <select id="getPlayerByName" parameterType="String" resultType="Player">
+        SELECT * FROM players WHERE player_name = #{playerName};
+    </select>
 </mapper>

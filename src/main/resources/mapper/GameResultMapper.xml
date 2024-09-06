@@ -4,43 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dailystudy.jogi_golf.mapper.GameResultMapper">
-
-    <insert id="insertGameId" parameterType="map" useGeneratedKeys="true" keyProperty="gameId">
-        INSERT INTO games (game_date)
-        VALUES (#{gameDate})
+    <insert id="insertGameResult" parameterType="GameResult">
+        INSERT INTO game_results (game_id, player_name, original_score, today_score, handicap, rank, calculated_amount)
+        VALUES (#{gameId}, #{playerName}, #{originalScore}, #{todayScore}, #{handicap}, #{rank}, #{calculatedAmount});
     </insert>
 
-    <insert id="insertGameResult" parameterType="com.dailystudy.jogi_golf.domain.GameResult">
-        INSERT INTO game_results (player_name, rank, calculated_amount, original_score, handicap, game_id)
-        VALUES (#{playerName}, #{rank}, #{calculatedAmount}, #{originalScore}, #{handicap}, #{gameId})
-    </insert>
-
-    <select id="selectGameResultsByDate" resultType="com.dailystudy.jogi_golf.domain.GameResult">
-        SELECT gr.id as resultId, gr.player_name as playerName, gr.rank, gr.calculated_amount as calculatedAmount,
-               gr.original_score as originalScore, gr.handicap as handicap
-        FROM game_results gr
-                 INNER JOIN games g ON gr.game_id = g.game_id
-        WHERE g.game_date = #{gameDate}
-        ORDER BY gr.rank ASC
+    <select id="getGameResultsByGameId" parameterType="int" resultType="GameResult">
+        SELECT * FROM game_results WHERE game_id = #{gameId};
     </select>
 
-    <select id="selectPlayerTotals" resultType="com.dailystudy.jogi_golf.domain.PlayerTotal">
-        SELECT player_name AS playerName,
-               SUM(calculated_amount) AS totalAmount,
-               COUNT(*) AS participationCount
-        FROM game_results
-        GROUP BY player_name
-        ORDER BY totalAmount DESC
-    </select>
-
-    <delete id="deleteGameResult" parameterType="String">
-        DELETE FROM game_results WHERE id = #{resultId}
-    </delete>
-
-    <select id="findAllSavedDates" resultType="String">
-        SELECT DISTINCT g.game_date
-        FROM games g
-                 INNER JOIN game_results gr ON g.game_id = gr.game_id
-    </select>
-
+    <update id="updateGameResult" parameterType="GameResult">
+        UPDATE game_results
+        SET original_score = #{originalScore}, today_score = #{todayScore}, handicap = #{handicap}, rank = #{rank}, calculated_amount = #{calculatedAmount}
+        WHERE result_id = #{resultId};
+    </update>
 </mapper>

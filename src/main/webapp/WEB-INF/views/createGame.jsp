@@ -1,27 +1,36 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>게임 생성</title>
+    <title>게임 생성하기</title>
+    <script>
+        function addPlayerForm() {
+            var form = document.getElementById('playersForm');
+            var index = form.childElementCount;
+            var div = document.createElement('div');
+            div.innerHTML = `
+                <h4>플레이어 ${index + 1}</h4>
+                <label>이름:</label>
+                <input type="text" name="playerNames" required /><br/>
+                <label>핸디:</label>
+                <input type="number" name="handicaps" required /><br/>
+            `;
+            form.appendChild(div);
+        }
+    </script>
 </head>
 <body>
-<div class="container" style="padding: 20px">
-    <h1>게임 생성</h1>
-    <form action="/saveGame" method="post">
-        <div class="form-group">
-            <label for="gameDate">날짜</label>
-            <input type="date" class="form-control" id="gameDate" name="gameDate" required>
-        </div>
-        <div class="form-group">
-            <label for="gameFee">타당 게임비</label>
-            <input type="number" class="form-control" id="gameFee" name="gameFee" value="2000" required>
-        </div>
-        <button type="submit" class="btn btn-success">게임 생성하기</button>
-    </form>
-</div>
+<h1>게임 생성하기</h1>
+<form action="GameCreateServlet" method="post">
+    <label>날짜: <input type="date" name="gameDate"></label><br>
+    <label>타당게임비: <input type="number" name="gameFee"></label><br>
+    <div id="playerForms">
+        <label>플레이어 이름: <input type="text" name="playerName"></label>
+        <label>핸디: <input type="number" name="handicap"></label>
+        <br>
+    </div>
+    <button type="button" onclick="addPlayerForm()">플레이어 추가</button><br>
+    <input type="submit" value="게임 저장하기">
+</form>
 </body>
 </html>

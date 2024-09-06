@@ -6,4 +6,10 @@
         <setting name="callSettersOnNulls" value="true"/>
         <!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
     </settings>
+    <typeAliases>
+        <typeAlias alias="Game" type="com.dailystudy.jogi_golf.domain.Game"/>
+        <typeAlias alias="Player" type="com.dailystudy.jogi_golf.domain.Player"/>
+        <typeAlias alias="GameResult" type="com.dailystudy.jogi_golf.domain.GameResult"/>
+        <typeAlias alias="PlayerTotal" type="com.dailystudy.jogi_golf.domain.PlayerTotal"/>
+    </typeAliases>
 </configuration>
