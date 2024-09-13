@@ -7,11 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface GameResultMapper {
     int insertGameId(Game game);
-    void insertGameResult(GameResult gameResult);
+    void insertGame(Map map);
+    void updateGameResult(GameResult gameResult);
 
     List<GameResult> selectGameResultsByDate(@Param("gameDate") String gameDate);
 

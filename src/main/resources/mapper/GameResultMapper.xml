@@ -6,8 +6,13 @@
 <mapper namespace="com.dailystudy.jogi_golf.mapper.GameResultMapper">
 
     <insert id="insertGameId" parameterType="map" useGeneratedKeys="true" keyProperty="gameId">
-        INSERT INTO games (game_date)
-        VALUES (#{gameDate})
+        INSERT INTO games (game_date,game_fee)
+        VALUES (#{gameDate},#{gameFee})
+    </insert>
+
+    <insert id="insertGame" parameterType="com.dailystudy.jogi_golf.domain.GameResult">
+        INSERT INTO game_results (player_name, handicap, game_id)
+        VALUES (#{playerName}, #{handicap}, #{gameId})
     </insert>
 
     <insert id="insertGameResult" parameterType="com.dailystudy.jogi_golf.domain.GameResult">
@@ -15,9 +20,15 @@
         VALUES (#{playerName}, #{rank}, #{calculatedAmount}, #{originalScore}, #{handicap}, #{gameId})
     </insert>
 
+    <update id="updateGameResult" parameterType="com.dailystudy.jogi_golf.domain.GameResult">
+        UPDATE game_results
+        SET rank=#{rank}, calculated_amount=#{calculatedAmount}, original_score=#{originalScore}
+        Where id = #{resultId}
+    </update>
+
     <select id="selectGameResultsByDate" resultType="com.dailystudy.jogi_golf.domain.GameResult">
         SELECT gr.id as resultId, gr.player_name as playerName, gr.rank, gr.calculated_amount as calculatedAmount,
-               gr.original_score as originalScore, gr.handicap as handicap
+               gr.original_score as originalScore, gr.handicap as handicap,g.game_id as gameId
         FROM game_results gr
                  INNER JOIN games g ON gr.game_id = g.game_id
         WHERE g.game_date = #{gameDate}
@@ -29,6 +40,7 @@
                SUM(calculated_amount) AS totalAmount,
                COUNT(*) AS participationCount
         FROM game_results
+        WHERE `rank`>0
         GROUP BY player_name
         ORDER BY totalAmount DESC
     </select>

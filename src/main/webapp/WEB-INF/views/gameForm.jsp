@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="container" style="padding: 20px">
-        <form action="/calculate" method="post">
+        <form action="/save" method="post">
             <div class="form-group">
                 <label for="gameDate">날짜</label>
                 <input type="date" class="form-control" id="gameDate" name="gameDate" value="${today}" required>
@@ -27,7 +27,7 @@
             </div>
             <button type="button" class="btn btn-primary" id="generateButton">폼 생성하기</button>
             <div id="players" class="mt-3"></div>
-            <button type="submit" class="btn btn-success mt-3" id="calculateButton" disabled>계산하기</button>
+            <button type="submit" class="btn btn-success mt-3" id="saveButton" disabled>저장하기</button>
         </form>
     </div>
 </body>

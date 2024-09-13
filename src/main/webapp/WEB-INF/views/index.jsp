@@ -31,7 +31,7 @@
         </c:forEach>
         </tbody>
     </table>
-    <a href="/gameForm" class="btn btn-primary mt-3">기록 저장하기</a>
+    <a href="/gameForm" class="btn btn-primary mt-3">게임 생성하기</a>
     <button type="button" class="btn btn-info mt-3" onclick="location.href='/dateList'">결과 조회하기</button>
 </div>
 

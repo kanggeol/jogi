@@ -39,10 +39,6 @@ function generatePlayerForms() {
             '<input type="text" name="names" class="form-control player-name" placeholder="이름 입력" required>' +
             '</div>' +
             '<div class="form-group col-md-4">' +
-            '<label>오늘의 타수</label>' +
-            '<input type="text" name="todayScores" class="form-control" placeholder="타수 입력" required>' +
-            '</div>' +
-            '<div class="form-group col-md-4">' +
             '<label>핸디</label>' +
             '<input type="text" name="handicaps" class="form-control handicap-input" placeholder="핸디 입력" required>' +
             '</div>' +
@@ -59,7 +55,7 @@ function generatePlayerForms() {
     }
 
     // 폼 생성 후 계산하기 버튼 활성화
-    calculateButton.disabled = false;
+    saveButton.disabled = false;
 }
 
 window.onload = function() {
@@ -73,6 +69,6 @@ window.onload = function() {
         }
     });
 
-    const calculateButton = document.getElementById('calculateButton');
-    calculateButton.disabled = true;
+    const saveButton = document.getElementById('saveButton');
+    saveButton.disabled = true;
 }

@@ -9,9 +9,7 @@ import com.dailystudy.jogi_golf.mapper.PlayerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class GameService {
@@ -52,13 +50,18 @@ public class GameService {
         return results;
     }
 
-    public void saveGameResult(GameResult gameResult) {
-        gameResultMapper.insertGameResult(gameResult);
+    public void saveGame(Map<String, Object> gameResult) {
+        gameResultMapper.insertGame(gameResult);
     }
 
-    public int saveGameId(String gameDate) {
+    public void updateGameResult(GameResult gameResult) {
+        gameResultMapper.updateGameResult(gameResult);
+    }
+
+    public int saveGameId(String gameDate,Integer gameFee) {
         Game game = new Game();
         game.setGameDate(gameDate);
+        game.setGameFee(gameFee);
         gameResultMapper.insertGameId(game);
         return game.getGameId();
     }
