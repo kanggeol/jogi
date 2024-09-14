@@ -6,37 +6,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>깊생골프</title>
+    <title>총금액 순위</title>
 </head>
 <body style="margin: 20px">
 <div class="container">
     <h1>깊생골프</h1>
     <table class="table table-bordered">
-            <thead>
+        <thead>
+        <tr>
+            <th>순위</th>
+            <th>이름</th>
+            <th>참여</th>
+            <th>총 금액</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="player" items="${playerTotals}" varStatus="status">
             <tr>
-                <th>순위</th>
-                <th>이름</th>
-                <th>참여</th>
-                <th>총 금액</th>
+                <td>${status.index + 1}</td>
+                <td>${player.playerName}</td>
+                <td>${player.participationCount}회</td>
+                <td>${player.totalAmount}원</td>
             </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="player" items="${playerTotals}" varStatus="status">
-                <tr>
-                    <td>${status.index + 1}</td>
-                    <td>${player.playerName}</td>
-                    <td>${player.participationCount}회</td>
-                    <td>${player.totalAmount}원</td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    <a href="/createGame" class="btn btn-primary mt-3">게임 생성하기</a>
+        </c:forEach>
+        </tbody>
+    </table>
+    <a href="/gameForm" class="btn btn-primary mt-3">게임 생성하기</a>
     <button type="button" class="btn btn-info mt-3" onclick="location.href='/dateList'">결과 조회하기</button>
 </div>
 
 <footer style="position: fixed; bottom: 10px; right: 10px;">
-    <p>since 2024.8.29<br>ver 1.3</p>
+    <p>since 2024.8.29<br>ver 1.1</p>
 </footer>
 
 </body>

@@ -54,7 +54,7 @@ function generatePlayerForms() {
     }
 
     // 폼 생성 후 계산하기 버튼 활성화
-    calculateButton.disabled = false;
+    saveButton.disabled = false;
 }
 
 window.onload = function() {
@@ -68,6 +68,6 @@ window.onload = function() {
         }
     });
 
-    const calculateButton = document.getElementById('calculateButton');
-    calculateButton.disabled = true;
+    const saveButton = document.getElementById('saveButton');
+    saveButton.disabled = true;
 }
