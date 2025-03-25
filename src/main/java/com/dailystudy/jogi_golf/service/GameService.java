@@ -73,8 +73,8 @@ public class GameService {
         return gameResultMapper.selectGameResultsByDate(gameDate);
     }
 
-    public List<PlayerTotal> getPlayerTotals() {
-        return gameResultMapper.selectPlayerTotals();
+    public List<PlayerTotal> getPlayerTotals(String year) {
+        return gameResultMapper.selectPlayerTotals(year);
     }
 
     public void deleteGameResult(String resultId) {
@@ -94,4 +94,5 @@ public class GameService {
             return false;
         }
     }
+
 }

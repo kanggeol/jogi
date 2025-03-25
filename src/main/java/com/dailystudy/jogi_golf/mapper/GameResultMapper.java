@@ -17,7 +17,7 @@ public interface GameResultMapper {
 
     List<GameResult> selectGameResultsByDate(@Param("gameDate") String gameDate);
 
-    List<PlayerTotal> selectPlayerTotals();
+    List<PlayerTotal> selectPlayerTotals(@Param("year") String year);
 
     void deleteGameResult(@Param("resultId") String resultId);
 

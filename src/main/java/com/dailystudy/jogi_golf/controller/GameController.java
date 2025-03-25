@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -33,11 +30,23 @@ public class GameController {
         this.playerService = playerService;
     }
 
-    @GetMapping("/")
-    public String index(Model model) {
-        List<PlayerTotal> playerTotals = gameService.getPlayerTotals();
+    @GetMapping("/year")
+    public String index(@RequestParam(value = "year", required = false) String year, Model model) {
+        // year 값이 null이거나 잘못된 값일 경우 "allTime"을 기본값으로 설정
+        if (year == null) {
+            year = "allTime";
+        }
+
+        log.info("=============year {}", year);  // log the year to help debug
+
+        // 필터링된 플레이어 총합 데이터를 가져옵니다.
+        List<PlayerTotal> playerTotals = gameService.getPlayerTotals(year);
+
+        // 모델에 playerTotals 데이터를 추가하여 JSP에서 사용할 수 있도록 전달합니다.
         model.addAttribute("playerTotals", playerTotals);
-        return "index";
+        model.addAttribute("selectedYear", year);  // 선택된 년도를 모델에 추가
+
+        return "index";  // index.jsp로 리턴
     }
 
     @GetMapping("/gameForm")

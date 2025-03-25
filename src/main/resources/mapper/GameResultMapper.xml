@@ -37,10 +37,14 @@
 
     <select id="selectPlayerTotals" resultType="com.dailystudy.jogi_golf.domain.PlayerTotal">
         SELECT player_name AS playerName,
-               SUM(calculated_amount) AS totalAmount,
-               COUNT(*) AS participationCount
-        FROM game_results
-        WHERE `rank`>0
+        SUM(calculated_amount) AS totalAmount,
+        COUNT(*) AS participationCount
+        FROM game_results gr
+        INNER JOIN golf.games g ON g.game_id = gr.game_id
+        WHERE `rank` > 0
+        <if test="year != 'allTime'">
+            AND year(game_date) = #{year}
+        </if>
         GROUP BY player_name
         ORDER BY totalAmount DESC
     </select>
