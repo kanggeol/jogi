@@ -9,7 +9,10 @@ import com.dailystudy.jogi_golf.mapper.PlayerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class GameService {
@@ -82,19 +85,13 @@ public class GameService {
         return gameResultMapper.findAllSavedDates();
     }
 
-    public void updatePlayerHandicap(String playerName, int adjustment) {
-        playerMapper.updateHandicap(playerName, adjustment);
-    }
-
-    public int getPlayerHandicap(String playerName) {
-        return playerMapper.getHandicapByPlayerName(playerName);
-    }
-
-    public void ensurePlayerExists(String playerName) {
-        Integer handicap = playerMapper.getHandicapByPlayerName(playerName);
-        if (handicap == null) {
-            playerMapper.insertPlayer(playerName, 0); // 기본 핸디캡 0으로 초기화
+    public boolean deleteSelectedGamePlayers(List<Long> resultIds) {
+        try {
+            int deletedRows = gameResultMapper.deleteSelectedGamePlayers(resultIds);
+            return deletedRows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
-
 }

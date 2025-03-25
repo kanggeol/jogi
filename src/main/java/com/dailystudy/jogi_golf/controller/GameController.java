@@ -3,9 +3,10 @@ package com.dailystudy.jogi_golf.controller;
 import com.dailystudy.jogi_golf.domain.GameResult;
 import com.dailystudy.jogi_golf.domain.Player;
 import com.dailystudy.jogi_golf.domain.PlayerTotal;
-import com.dailystudy.jogi_golf.dto.CalculationRequest;
 import com.dailystudy.jogi_golf.service.GameService;
 import com.dailystudy.jogi_golf.service.PlayerService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Controller
 public class GameController {
     private final GameService gameService;
@@ -75,12 +80,10 @@ public class GameController {
         return "redirect:/results?date=" + gameDate;
     }
 
-
-
-
     @GetMapping("/results")
     public String getResultsByDate(@RequestParam("date") String date, Model model) {
         List<GameResult> results = gameService.getGameResultsByDate(date);
+
         model.addAttribute("results", results);
         model.addAttribute("gameDate", date);
 
@@ -100,6 +103,24 @@ public class GameController {
     public String deleteGameResult(@RequestParam("resultId") String resultId, @RequestParam("date") String date) {
         gameService.deleteGameResult(resultId);
         return "redirect:/results?date=" + date;
+    }
+
+    @PostMapping("/deleteSelectedGamePlayers")
+    public ResponseEntity<?> deleteSelectedGamePlayers(@RequestBody Map<String, List<Long>> request) {
+        List<Long> resultIds = request.get("resultIds");
+
+        if (resultIds == null || resultIds.isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("success", false, "message", "삭제할 플레이어 ID가 없습니다."));
+        }
+
+        boolean isDeleted = gameService.deleteSelectedGamePlayers(resultIds);
+
+        if (isDeleted) {
+            return ResponseEntity.ok(Map.of("success", true));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("success", false, "message", "삭제 중 오류가 발생했습니다."));
+        }
     }
 
     @GetMapping("/dateList")

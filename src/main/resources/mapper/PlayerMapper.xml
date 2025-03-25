@@ -18,4 +18,10 @@
         INSERT INTO players (player_name, handicap)
         VALUES (#{playerName}, #{handicap})
     </insert>
+
+    <select id="findPlayersByName" resultType="com.dailystudy.jogi_golf.domain.Player">
+        SELECT player_name AS playerName, handicap
+        FROM players
+        WHERE player_name LIKE CONCAT('%', #{playerName}, '%')
+    </select>
 </mapper>

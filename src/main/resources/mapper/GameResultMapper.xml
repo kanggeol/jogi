@@ -32,7 +32,7 @@
         FROM game_results gr
                  INNER JOIN games g ON gr.game_id = g.game_id
         WHERE g.game_date = #{gameDate}
-        ORDER BY gr.rank ASC
+        ORDER BY gr.handicap ASC
     </select>
 
     <select id="selectPlayerTotals" resultType="com.dailystudy.jogi_golf.domain.PlayerTotal">
@@ -54,5 +54,12 @@
         FROM games g
                  INNER JOIN game_results gr ON g.game_id = gr.game_id
     </select>
+
+    <delete id="deleteSelectedGamePlayers">
+        DELETE FROM golf.game_results WHERE id IN
+        <foreach item="id" collection="resultIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
 </mapper>

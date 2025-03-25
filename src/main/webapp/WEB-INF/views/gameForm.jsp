@@ -9,6 +9,9 @@
     <title>Game Calculator</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <script src="${pageContext.request.contextPath}/js/main.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
     <div class="container" style="padding: 20px">
@@ -27,7 +30,21 @@
             </div>
             <button type="button" class="btn btn-primary" id="generateButton">폼 생성하기</button>
             <div id="players" class="mt-3"></div>
-            <button type="submit" class="btn btn-success mt-3" id="saveButton" disabled>저장하기</button>
+            <!-- 플레이어 선택 모달 -->
+            <div class="modal fade" id="playerModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">플레이어 선택</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="playerModalBody" class="list-group"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success mt-3" id="saveButton">저장하기</button>
         </form>
     </div>
 </body>

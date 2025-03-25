@@ -6,15 +6,15 @@ import com.dailystudy.jogi_golf.dto.CalculationRequest;
 import com.dailystudy.jogi_golf.mapper.PlayerMapper;
 import com.dailystudy.jogi_golf.service.GameService;
 import com.dailystudy.jogi_golf.service.PlayerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 public class PlayerController {
 
@@ -26,31 +26,67 @@ public class PlayerController {
     @Autowired
     private PlayerMapper playerMapper;
 
-    @GetMapping("/player-handicap")
-    public ResponseEntity<Map<String, Object>> getPlayerHandicap(@RequestParam("playerName") String playerName) {
+//    @GetMapping("/search-player")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, Object>> searchPlayer(@RequestParam String playerName) {
+//        Map<String, Object> response = new HashMap<>();
+//        Optional<Player> player = playerService.findByName(playerName);
+//
+//        if (player.isPresent()) {
+//            response.put("exists", true);  // 플레이어가 존재하면
+//            response.put("handicap", player.get().getHandicap());  // 핸디캡 반환
+//            response.put("name", player.get().getPlayerName());  // 플레이어 이름 반환
+//        } else {
+//            response.put("exists", false);  // 플레이어가 존재하지 않으면
+//            response.put("handicap", 0);  // 기본 핸디캡 0 반환
+//        }
+//        return ResponseEntity.ok(response);  // 응답 반환
+//    }
+
+    @GetMapping("/search-player-list")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> searchPlayerList(@RequestParam String playerName) {
         Map<String, Object> response = new HashMap<>();
-        gameService.ensurePlayerExists(playerName); // Ensure player exists
-        int handicap = gameService.getPlayerHandicap(playerName);
-        response.put("exists", true); // Assumes player exists
-        response.put("handicap", handicap);
+        List<Player> players = playerService.findPlayersByName(playerName);
+
+        List<Map<String, Object>> playerList = players.stream()
+            .map(player -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("name", player.getPlayerName());
+                map.put("handicap", player.getHandicap());
+                return map;
+            })
+            .collect(Collectors.toList());
+
+        response.put("players", playerList);
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/update-handicap")
-    @ResponseBody
-    public Map<String, Object> updateHandicap(@RequestParam String playerName, @RequestParam int handicap) {
-        Map<String, Object> response = new HashMap<>();
+//    @GetMapping("/player-handicap")
+//    public ResponseEntity<Map<String, Object>> getPlayerHandicap(@RequestParam("playerName") String playerName) {
+//        Map<String, Object> response = new HashMap<>();
+//        gameService.ensurePlayerExists(playerName); // Ensure player exists
+//        int handicap = gameService.getPlayerHandicap(playerName);
+//        response.put("exists", true); // Assumes player exists
+//        response.put("handicap", handicap);
+//        return ResponseEntity.ok(response);
+//    }
 
-        try {
-            playerMapper.updateHandicap(playerName, handicap);
-            response.put("success", true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("success", false);
-        }
-
-        return response;
-    }
+//    @PostMapping("/update-handicap")
+//    @ResponseBody
+//    public Map<String, Object> updateHandicap(@RequestParam String playerName, @RequestParam int handicap) {
+//        Map<String, Object> response = new HashMap<>();
+//
+//        try {
+//            playerMapper.updateHandicap(playerName, handicap);
+//            response.put("success", true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            response.put("success", false);
+//        }
+//
+//        return response;
+//    }
 
     @PostMapping("/calculate")
     public ResponseEntity<Map<String, Object>> calculate(@RequestBody CalculationRequest request) {

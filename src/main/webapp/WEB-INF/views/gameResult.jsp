@@ -8,58 +8,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <title>게임 결과</title>
   <script>
-      function showDeleteModal(resultId, date) {
-          const modal = document.getElementById('deleteModal');
-          modal.dataset.resultId = resultId;
-          modal.dataset.date = date;
-          modal.querySelector('.modal-body').innerHTML = `
-            <p>비밀번호를 입력하여 삭제를 확인하세요.</p>
-            <input type="password" id="passwordInput" class="form-control" placeholder="비밀번호 입력">
-            <div id="deleteMessage" class="mt-2 text-danger" style="display: none;">삭제 실패: 비밀번호가 일치하지 않습니다.</div>
-          `;
-          $('#deleteModal').modal('show');
-
-          // 엔터 키를 누르면 삭제 확인
-          document.getElementById('passwordInput').addEventListener('keypress', function(event) {
-              if (event.key === 'Enter') {
-                  event.preventDefault(); // 폼 제출을 방지 (필요시)
-                  confirmDelete(); // 삭제 확인 함수 호출
-              }
-          });
-      }
-
-      function confirmDelete() {
-          const password = document.getElementById('passwordInput').value;
-          const modal = document.getElementById('deleteModal');
-          const resultId = modal.dataset.resultId;
-          const date = modal.dataset.date;
-
-          if (password === "0") {
-              // 비밀번호 일치 시 삭제 요청 전송
-              const form = document.createElement('form');
-              form.method = 'POST';
-              form.action = '/deleteGameResult';
-
-              const resultIdInput = document.createElement('input');
-              resultIdInput.type = 'hidden';
-              resultIdInput.name = 'resultId';
-              resultIdInput.value = resultId;
-              form.appendChild(resultIdInput);
-
-              const dateInput = document.createElement('input');
-              dateInput.type = 'hidden';
-              dateInput.name = 'date';
-              dateInput.value = date;
-              form.appendChild(dateInput);
-
-              document.body.appendChild(form);
-              form.submit();
-          } else {
-              // 비밀번호 불일치 시 메시지 표시
-              document.getElementById('deleteMessage').style.display = 'block';
-          }
-      }
-
       function submitCalculation() {
           const resultIds = Array.from(document.querySelectorAll('[name="resultIds"]')).map(input => input.value);
           const playerNames = Array.from(document.querySelectorAll('[name="names"]')).map(input => input.value);
@@ -92,6 +40,53 @@
               });
       }
 
+      function deleteSelectedPlayers() {
+        const selectedResultIds = Array.from(document.querySelectorAll('.player-checkbox:checked')).map(checkbox => checkbox.value);
+
+        if (selectedResultIds.length === 0) {
+          alert('삭제할 플레이어를 선택하세요.');
+          return;
+        }
+
+        if (!confirm('선택한 플레이어를 삭제하시겠습니까?')) {
+          return;
+        }
+
+        fetch('/deleteSelectedGamePlayers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ resultIds: selectedResultIds })
+        })
+          .then(response => response.json())
+          .then(result => {
+            if (result.success) {
+              alert('삭제되었습니다.');
+              window.location.reload();
+            } else {
+              alert('삭제 실패: ' + result.message);
+            }
+          })
+          .catch(error => console.error('Error:', error));
+      }
+
+      function toggleSelectAll() {
+        const checkboxes = document.querySelectorAll('.player-checkbox');
+        const selectAll = document.getElementById('selectAllCheckbox').checked;
+
+        checkboxes.forEach(checkbox => {
+          checkbox.checked = selectAll;
+        });
+      }
+
+      // 개별 체크박스 변경 시 전체 선택 체크박스 상태 업데이트
+      function updateSelectAllCheckbox() {
+        const checkboxes = document.querySelectorAll('.player-checkbox');
+        const selectAll = document.getElementById('selectAllCheckbox');
+
+        // 모든 체크박스가 선택된 경우 전체 선택 체크박스도 선택
+        selectAll.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+      }
+
   </script>
   <style>
     tr,td {
@@ -108,6 +103,7 @@
   <table class="table table-bordered">
     <thead>
     <tr>
+      <th><input type="checkbox" id="selectAllCheckbox" onclick="toggleSelectAll()" /></th>
       <c:if test="${showDeleteButton}">
       <th>순위</th>
       </c:if>
@@ -116,13 +112,13 @@
       <th>핸디</th>
       <c:if test="${showDeleteButton}">
         <th>금액</th>
-        <th>삭제</th>
       </c:if>
     </tr>
     </thead>
     <tbody>
     <c:forEach var="result" items="${results}" varStatus="status">
       <tr >
+        <td><input type="checkbox" class="player-checkbox" value="${result.resultId}" /></td>
         <c:if test="${showDeleteButton}">
         <td>${status.index + 1}</td>
         </c:if>
@@ -148,9 +144,6 @@
         </td>
         <c:if test="${showDeleteButton}">
           <td>${result.calculatedAmount}원</td>
-          <td>
-            <button class="btn btn-danger" onclick="showDeleteModal('${result.resultId}', '${gameDate}')">삭제</button>
-          </td>
         </c:if>
       </tr>
     </c:forEach>
@@ -159,11 +152,12 @@
 
   <a href="/" class="btn btn-primary mt-3">총금액 확인</a>
   <button type="button" class="btn btn-success mt-3" onclick="submitCalculation()">계산하기</button>
+  <button type="button" class="btn btn-danger mt-3" onclick="deleteSelectedPlayers()">삭제</button>
 </div>
 
-<!-- 모달 HTML -->
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+</body>
+</html>
