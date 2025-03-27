@@ -8,23 +8,30 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>총금액 순위</title>
     <style>
+        /* 테이블 컨테이너 */
+        .table-container {
+            position: relative;
+            margin-top: 50px; /* 드롭다운과 여백 확보 */
+        }
+        
+        /* 드롭다운 버튼을 테이블 우측 상단에 위치 */
+        .dropdown {
+            position: absolute;
+            top: -40px; /* 테이블 위쪽 */
+            right: 0;
+        }
+        
         /* 드롭다운 메뉴 스타일 */
         .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 40px;
-            right: 20px;
             background-color: #f8f9fa;
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1;
+            z-index: 1000;
         }
-        .dropdown.show .dropdown-menu {
-            display: block;
-        }
+        
         .dropdown-item {
-            padding: 10px 20px;
             cursor: pointer;
         }
+        
         .dropdown-item:hover {
             background-color: #ddd;
         }
@@ -34,69 +41,75 @@
 <div class="container">
     <h1>깊생골프</h1>
     
-    <!-- 우측 상단에 년도 선택 드롭다운 추가 -->
-    <div class="dropdown" style="position: absolute; top: 20px; right: 20px;">
-        <button class="btn btn-secondary" type="button" id="dropdownMenuButton">
-            년도 선택
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#" id="lastYear">작년</a>
-            <a class="dropdown-item" href="#" id="thisYear">올해</a>
-            <a class="dropdown-item" href="#" id="allTime">전체</a>
+    <!-- 테이블 컨테이너 -->
+    <div class="table-container">
+        <!-- 드롭다운 버튼 (테이블 우측 상단) -->
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton">
+                ${selectedYear eq 'allTime' ? '전체' : selectedYear} <!-- 선택된 값 표시 -->
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#" data-year="lastYear">작년</a>
+                <a class="dropdown-item" href="#" data-year="thisYear">올해</a>
+                <a class="dropdown-item" href="#" data-year="allTime">전체</a>
+            </div>
         </div>
-    </div>
-    
-    <table class="table table-bordered mt-4">
-        <thead>
-        <tr>
-            <th>순위</th>
-            <th>이름</th>
-            <th>참여</th>
-            <th>총 금액</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="player" items="${playerTotals}" varStatus="status">
+        
+        <!-- 테이블 -->
+        <table class="table table-bordered mt-4">
+            <thead>
             <tr>
-                <td>${status.index + 1}</td>
-                <td>${player.playerName}</td>
-                <td>${player.participationCount}회</td>
-                <td>${player.totalAmount}원</td>
+                <th>순위</th>
+                <th>이름</th>
+                <th>참여</th>
+                <th>총 금액</th>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <c:forEach var="player" items="${playerTotals}" varStatus="status">
+                <tr>
+                    <td>${status.index + 1}</td>
+                    <td>${player.playerName}</td>
+                    <td>${player.participationCount}회</td>
+                    <td>${player.totalAmount}원</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
     
     <a href="/gameForm" class="btn btn-primary mt-3">게임 생성하기</a>
     <button type="button" class="btn btn-info mt-3" onclick="location.href='/dateList'">결과 조회하기</button>
 </div>
 
-<!-- jQuery, Popper.js, Bootstrap JS를 올바르게 포함시켜야 드롭다운이 작동합니다 -->
 <script>
-    // 드롭다운 토글 기능 구현
-    const dropdownButton = document.getElementById('dropdownMenuButton');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-    
-    dropdownButton.addEventListener('click', function () {
-        dropdownMenu.classList.toggle('show');
+    document.getElementById('dropdownMenuButton').addEventListener('click', function () {
+        document.querySelector('.dropdown-menu').classList.toggle('show');
     });
     
-    // 버튼 클릭 시 선택된 년도에 따라 필터링 동작
-    document.getElementById('lastYear').addEventListener('click', function() {
-        var currentYear = new Date().getFullYear();
-        var year = currentYear - 1;
-        location.href = '/?year=' + year;  // year 파라미터에 lastYear 값 전달
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            let yearLabel = this.textContent;
+            let yearValue = this.getAttribute('data-year');
+            
+            if (yearValue === 'lastYear') {
+                yearValue = new Date().getFullYear() - 1;
+            } else if (yearValue === 'thisYear') {
+                yearValue = new Date().getFullYear();
+            }
+            
+            document.getElementById('dropdownMenuButton').textContent = yearLabel;
+            location.href = '/?year=' + yearValue;
+        });
     });
     
-    document.getElementById('thisYear').addEventListener('click', function() {
-        var currentYear = new Date().getFullYear();
-        location.href = '/?year=' + currentYear;  // year 파라미터에 thisYear 값 전달
+    // 클릭 외부 영역을 누르면 드롭다운 닫기
+    document.addEventListener('click', function (e) {
+        if (!document.querySelector('.dropdown').contains(e.target)) {
+            document.querySelector('.dropdown-menu').classList.remove('show');
+        }
     });
-    
-    document.getElementById('allTime').addEventListener('click', function() {
-        location.href = '/?year=allTime';  // 전체를 표시하는 경우 'allTime'으로 설정
-    });
-
 </script>
 </body>
 </html>

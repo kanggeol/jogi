@@ -30,7 +30,7 @@ public class GameController {
         this.playerService = playerService;
     }
 
-    @GetMapping("/year")
+    @GetMapping({"/", "/year"})
     public String index(@RequestParam(value = "year", required = false) String year, Model model) {
         // year 값이 null이거나 잘못된 값일 경우 "allTime"을 기본값으로 설정
         if (year == null) {
