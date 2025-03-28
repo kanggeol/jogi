@@ -11,14 +11,15 @@
       function submitCalculation() {
           const resultIds = Array.from(document.querySelectorAll('[name="resultIds"]')).map(input => input.value);
           const playerNames = Array.from(document.querySelectorAll('[name="names"]')).map(input => input.value);
-          const todayScores = Array.from(document.querySelectorAll('[name="todayScores"]')).map(input => input.value);
+          const originalScore = Array.from(document.querySelectorAll('[name="originalScore"]')).map(input => input.value);
           const handicaps = Array.from(document.querySelectorAll('[name="handicaps"]')).map(input => input.value);
 
           const data = {
               gameDate: document.querySelector('[name="gameDate"]').value,
+              gameId:document.querySelector('[name="gameId"]').value,
               resultId: resultIds,
               names: playerNames,
-              todayScores: todayScores,
+              originalScore: originalScore,
               handicaps: handicaps
           };
 
@@ -117,6 +118,7 @@
     </thead>
     <tbody>
     <c:forEach var="result" items="${results}" varStatus="status">
+    <input type="hidden" name="gameId" value="${result.gameId}" />
       <tr >
         <td><input type="checkbox" class="player-checkbox" value="${result.resultId}" /></td>
         <c:if test="${showDeleteButton}">
@@ -130,11 +132,11 @@
         <td>
           <c:choose>
             <c:when test="${result.rank == 0}">
-              <input type="number" class="form-control" name="todayScores" value="${result.originalScore}" required/>
+              <input type="number" class="form-control" name="originalScore" value="${result.originalScore}" required/>
             </c:when>
             <c:otherwise>
               ${result.originalScore}
-              <input type="hidden" name="todayScores" value="${result.originalScore}" />
+              <input type="hidden" name="originalScore" value="${result.originalScore}" />
             </c:otherwise>
           </c:choose>
         </td>
@@ -151,8 +153,15 @@
   </table>
 
   <a href="/" class="btn btn-primary mt-3">총금액 확인</a>
-  <button type="button" class="btn btn-success mt-3" onclick="submitCalculation()">계산하기</button>
-  <button type="button" class="btn btn-danger mt-3" onclick="deleteSelectedPlayers()">삭제</button>
+  <c:choose>
+      <c:when test="${showDeleteButton}">
+          <button type="button" class="btn btn-danger mt-3" onclick="deleteSelectedPlayers()">삭제</button>
+      </c:when>
+      <c:otherwise>
+          <button type="button" class="btn btn-success mt-3" onclick="submitCalculation()">계산하기</button>
+      </c:otherwise>
+  </c:choose>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

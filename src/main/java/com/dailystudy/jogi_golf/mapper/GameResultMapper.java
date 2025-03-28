@@ -24,4 +24,6 @@ public interface GameResultMapper {
     List<String> findAllSavedDates();
 
     int deleteSelectedGamePlayers(@Param("resultIds") List<Long> resultIds);
+
+    int getGameFee(@Param("gameId") int gameId);
 }

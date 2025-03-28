@@ -25,8 +25,8 @@ public class GameService {
     public List<GameResult> calculateGameResults(List<Player> players, int gameFee) {
         // 원래 타수 저장 및 실제 타수 계산
         for (Player player : players) {
-            player.setOriginalScore(player.getTodayScore());  // 원래 타수를 저장
-            player.setTodayScore(player.getTodayScore() - player.getHandicap()); // 핸디를 뺀 타수로 계산
+//            player.setOriginalScore(player.getTodayScore());  // 원래 타수를 저장
+            player.setTodayScore(player.getOriginalScore() - player.getHandicap()); // 핸디를 뺀 타수로 계산
         }
 
         // 순위 계산
@@ -95,4 +95,7 @@ public class GameService {
         }
     }
 
+    public int getGameFee(int gameId) {
+        return gameResultMapper.getGameFee(gameId);
+    }
 }

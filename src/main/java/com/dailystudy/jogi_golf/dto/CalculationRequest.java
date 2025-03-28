@@ -12,7 +12,7 @@ public class CalculationRequest {
     private int gameId;
     private List<Integer> resultId;
     private List<String> names;
-    private List<Integer> todayScores;
+    private List<Integer> originalScore;
     private List<Integer> handicaps;
     private String gameDate;
 }

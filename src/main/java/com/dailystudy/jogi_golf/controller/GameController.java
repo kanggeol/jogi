@@ -34,7 +34,7 @@ public class GameController {
     public String index(@RequestParam(value = "year", required = false) String year, Model model) {
         // year 값이 null이거나 잘못된 값일 경우 "allTime"을 기본값으로 설정
         if (year == null) {
-            year = "allTime";
+            year = "2025";
         }
 
         // 필터링된 플레이어 총합 데이터를 가져옵니다.
@@ -71,6 +71,7 @@ public class GameController {
             Player player = new Player();
             player.setPlayerName(names.get(i));
             player.setHandicap(handicaps.get(i));
+            playerService.updateHandicap(names.get(i), handicaps.get(i));
             players.add(player);
         }
 

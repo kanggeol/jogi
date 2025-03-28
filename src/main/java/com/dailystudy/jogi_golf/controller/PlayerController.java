@@ -3,6 +3,7 @@ package com.dailystudy.jogi_golf.controller;
 import com.dailystudy.jogi_golf.domain.GameResult;
 import com.dailystudy.jogi_golf.domain.Player;
 import com.dailystudy.jogi_golf.dto.CalculationRequest;
+import com.dailystudy.jogi_golf.mapper.GameResultMapper;
 import com.dailystudy.jogi_golf.mapper.PlayerMapper;
 import com.dailystudy.jogi_golf.service.GameService;
 import com.dailystudy.jogi_golf.service.PlayerService;
@@ -23,26 +24,6 @@ public class PlayerController {
     @Autowired
     private PlayerService playerService;
 
-    @Autowired
-    private PlayerMapper playerMapper;
-
-//    @GetMapping("/search-player")
-//    @ResponseBody
-//    public ResponseEntity<Map<String, Object>> searchPlayer(@RequestParam String playerName) {
-//        Map<String, Object> response = new HashMap<>();
-//        Optional<Player> player = playerService.findByName(playerName);
-//
-//        if (player.isPresent()) {
-//            response.put("exists", true);  // 플레이어가 존재하면
-//            response.put("handicap", player.get().getHandicap());  // 핸디캡 반환
-//            response.put("name", player.get().getPlayerName());  // 플레이어 이름 반환
-//        } else {
-//            response.put("exists", false);  // 플레이어가 존재하지 않으면
-//            response.put("handicap", 0);  // 기본 핸디캡 0 반환
-//        }
-//        return ResponseEntity.ok(response);  // 응답 반환
-//    }
-
     @GetMapping("/search-player-list")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> searchPlayerList(@RequestParam String playerName) {
@@ -62,32 +43,6 @@ public class PlayerController {
         return ResponseEntity.ok(response);
     }
 
-//    @GetMapping("/player-handicap")
-//    public ResponseEntity<Map<String, Object>> getPlayerHandicap(@RequestParam("playerName") String playerName) {
-//        Map<String, Object> response = new HashMap<>();
-//        gameService.ensurePlayerExists(playerName); // Ensure player exists
-//        int handicap = gameService.getPlayerHandicap(playerName);
-//        response.put("exists", true); // Assumes player exists
-//        response.put("handicap", handicap);
-//        return ResponseEntity.ok(response);
-//    }
-
-//    @PostMapping("/update-handicap")
-//    @ResponseBody
-//    public Map<String, Object> updateHandicap(@RequestParam String playerName, @RequestParam int handicap) {
-//        Map<String, Object> response = new HashMap<>();
-//
-//        try {
-//            playerMapper.updateHandicap(playerName, handicap);
-//            response.put("success", true);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            response.put("success", false);
-//        }
-//
-//        return response;
-//    }
-
     @PostMapping("/calculate")
     public ResponseEntity<Map<String, Object>> calculate(@RequestBody CalculationRequest request) {
         System.out.println("=======request "+request);
@@ -95,15 +50,15 @@ public class PlayerController {
         for (int i = 0; i < request.getNames().size(); i++) {
             Player player = new Player();
             player.setPlayerName(request.getNames().get(i));
-            player.setTodayScore(request.getTodayScores().get(i));
+            player.setOriginalScore(request.getOriginalScore().get(i));
             player.setHandicap(request.getHandicaps().get(i));
             players.add(player);
         }
 
         // 게임 결과 계산
-        int gameFee = 2000;
+        int gameFee = gameService.getGameFee(request.getGameId());
         List<GameResult> results = gameService.calculateGameResults(players, gameFee);
-
+        System.out.println("========results "+results);
         // 핸디캡 조정 및 업데이트
         for (int i = 0; i < results.size(); i++) {
             GameResult result = results.get(i);

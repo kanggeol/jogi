@@ -5,6 +5,12 @@
 
 <mapper namespace="com.dailystudy.jogi_golf.mapper.GameResultMapper">
 
+    <select id="getGameFee" parameterType="int" resultType="java.lang.Integer">
+        SELECT game_fee as gameFee
+        FROM games
+        WHERE game_id=#{gameId}
+    </select>
+
     <insert id="insertGameId" parameterType="map" useGeneratedKeys="true" keyProperty="gameId">
         INSERT INTO games (game_date,game_fee)
         VALUES (#{gameDate},#{gameFee})
@@ -22,7 +28,7 @@
 
     <update id="updateGameResult" parameterType="com.dailystudy.jogi_golf.domain.GameResult">
         UPDATE game_results
-        SET rank=#{rank}, calculated_amount=#{calculatedAmount}, original_score=#{originalScore}
+        SET rank=#{rank}, calculated_amount=#{calculatedAmount}, original_score=#{originalScore}, handicap=#{handicap}
         Where id = #{resultId}
     </update>
 
