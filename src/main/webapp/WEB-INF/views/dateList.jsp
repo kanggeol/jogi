@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <title>날짜 선택</title>
 </head>
-<body>
+<body style="margin: 20px">
 <div class="container">
   <h1>날짜 선택</h1>
   <table class="table table-bordered">
