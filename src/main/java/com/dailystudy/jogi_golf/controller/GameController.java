@@ -37,8 +37,6 @@ public class GameController {
             year = "allTime";
         }
 
-        log.info("=============year {}", year);  // log the year to help debug
-
         // 필터링된 플레이어 총합 데이터를 가져옵니다.
         List<PlayerTotal> playerTotals = gameService.getPlayerTotals(year);
 

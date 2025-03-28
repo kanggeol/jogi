@@ -9,7 +9,7 @@ function generatePlayerForms() {
         row.innerHTML = `
             <h5>플레이어 ${i + 1}</h5>
             <div class="form-row mb-2">
-                <div class="form-group col-md-4">
+                <div class="form-group col-12 col-md-4">
                     <label>이름</label>
                     <div class="input-group">
                         <input type="text" name="names" class="form-control player-name" placeholder="이름 입력" required>
