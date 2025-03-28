@@ -92,8 +92,11 @@
         </table>
     </div>
 
-    <a href="/gameForm" class="btn btn-primary mt-3">게임 생성하기</a>
-    <button type="button" class="btn btn-info mt-3" onclick="location.href='/dateList'">결과 조회하기</button>
+    <div class="d-flex justify-content-center mt-3">
+        <a href="/gameForm" class="btn btn-primary">게임 생성하기</a>
+        <button type="button" class="btn btn-info ml-2" onclick="location.href='/dateList'">결과 조회하기</button>
+    </div>
+
 </div>
 
 <script>

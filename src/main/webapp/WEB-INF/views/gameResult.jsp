@@ -152,16 +152,17 @@
     </tbody>
   </table>
 
-  <a href="/" class="btn btn-primary mt-3">총금액 확인</a>
-  <c:choose>
-      <c:when test="${showDeleteButton}">
-          <button type="button" class="btn btn-danger mt-3" onclick="deleteSelectedPlayers()">삭제</button>
-      </c:when>
-      <c:otherwise>
-          <button type="button" class="btn btn-success mt-3" onclick="submitCalculation()">계산하기</button>
-      </c:otherwise>
-  </c:choose>
-
+  <div class="d-flex justify-content-end mt-3">
+      <a href="/" class="btn btn-primary">총금액 확인</a>
+      <c:choose>
+          <c:when test="${showDeleteButton}">
+              <button type="button" class="btn btn-danger ml-2" onclick="deleteSelectedPlayers()">삭제</button>
+          </c:when>
+          <c:otherwise>
+              <button type="button" class="btn btn-success ml-2" onclick="submitCalculation()">계산하기</button>
+          </c:otherwise>
+      </c:choose>
+  </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

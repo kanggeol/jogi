@@ -27,7 +27,9 @@
     </c:forEach>
     </tbody>
   </table>
-  <a href="/" class="btn btn-primary mt-3">홈으로</a>
+  <div class="d-flex justify-content-end mt-3">
+  <a href="/" class="btn btn-primary">홈으로</a>
+  </div>
 </div>
 </body>
 </html>
