@@ -10,24 +10,23 @@
 </head>
 <body style="margin: 20px">
 <div class="container">
-  <h1>날짜 선택</h1>
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th>날짜</th>
+      <h3 class="text-center">날짜 선택</h3>
     </tr>
     </thead>
     <tbody>
     <c:forEach var="date" items="${dates}">
       <tr>
-        <td>
-          <a href="/results?date=${date}" class="btn btn-link">${date}</a>
+        <td class="text-center">
+            <a href="/results?date=${date}" class="btn btn-link">${date}</a>
         </td>
       </tr>
     </c:forEach>
     </tbody>
   </table>
-  <div class="d-flex justify-content-end mt-3">
+  <div class="d-flex justify-content-center mt-3">
   <a href="/" class="btn btn-primary">홈으로</a>
   </div>
 </div>
