@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -145,14 +146,14 @@
             ${result.handicap}
         </td>
         <c:if test="${showDeleteButton}">
-          <td>${result.calculatedAmount}원</td>
+          <td><fmt:formatNumber value="${result.calculatedAmount}" type="number" groupingUsed="true" />원</td>
         </c:if>
       </tr>
     </c:forEach>
     </tbody>
   </table>
 
-  <div class="d-flex justify-content-end mt-3">
+  <div class="d-flex justify-content-center mt-3">
       <a href="/" class="btn btn-primary">총금액 확인</a>
       <c:choose>
           <c:when test="${showDeleteButton}">

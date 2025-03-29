@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -85,7 +86,7 @@
                     <td>${status.index + 1}</td>
                     <td>${player.playerName}</td>
                     <td>${player.participationCount}회</td>
-                    <td>${player.totalAmount}원</td>
+                    <td><fmt:formatNumber value="${player.totalAmount}" type="number" groupingUsed="true" />원</td>
                 </tr>
             </c:forEach>
             </tbody>
