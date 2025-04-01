@@ -25,11 +25,10 @@ public class GameService {
     public List<GameResult> calculateGameResults(List<Player> players, int gameFee) {
         // 원래 타수 저장 및 실제 타수 계산
         for (Player player : players) {
-//            player.setOriginalScore(player.getTodayScore());  // 원래 타수를 저장
             player.setTodayScore(player.getOriginalScore() - player.getHandicap()); // 핸디를 뺀 타수로 계산
         }
 
-        // 순위 계산
+        // 순위 계산 (핸디 적용된 타수 기준 오름차순 정렬)
         players.sort(Comparator.comparingInt(Player::getTodayScore));
 
         // 금액 계산
@@ -43,13 +42,28 @@ public class GameService {
             }
             GameResult result = new GameResult();
             result.setPlayerName(players.get(i).getPlayerName());
+            result.setResultId(players.get(i).getResultId());
             result.setOriginalScore(players.get(i).getOriginalScore()); // 원래 타수 저장
             result.setTodayScore(players.get(i).getTodayScore());  // 핸디가 적용된 타수 저장
             result.setHandicap(players.get(i).getHandicap()); // 핸디 저장
-            result.setRank(i + 1);
             result.setCalculatedAmount(amount);
             results.add(result);
         }
+
+        // 금액 기준 정렬 (내림차순)
+        results.sort(Comparator.comparingInt(GameResult::getCalculatedAmount).reversed());
+
+        // 동일한 금액에 대해 같은 순위 부여
+        int rank = 1;
+        for (int i = 0; i < results.size(); i++) {
+            if (i > 0 && results.get(i).getCalculatedAmount() == results.get(i - 1).getCalculatedAmount()) {
+                results.get(i).setRank(results.get(i - 1).getRank()); // 같은 금액이면 동일 순위
+            } else {
+                results.get(i).setRank(rank); // 새로운 순위 부여
+            }
+            rank++;
+        }
+
         return results;
     }
 

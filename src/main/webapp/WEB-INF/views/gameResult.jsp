@@ -123,7 +123,7 @@
       <tr >
         <td><input type="checkbox" class="player-checkbox" value="${result.resultId}" /></td>
         <c:if test="${showDeleteButton}">
-        <td>${status.index + 1}</td>
+        <td>${result.rank}</td>
         </c:if>
         <td>
           <input type="hidden" name="names" value="${result.playerName}" />
@@ -133,7 +133,7 @@
         <td>
           <c:choose>
             <c:when test="${result.rank == 0}">
-              <input type="number" class="form-control" name="originalScore" value="${result.originalScore}" required/>
+              <input type="number" class="form-control" name="originalScore" required/>
             </c:when>
             <c:otherwise>
               ${result.originalScore}
