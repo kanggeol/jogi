@@ -63,6 +63,7 @@
         SELECT DISTINCT g.game_date
         FROM games g
                  INNER JOIN game_results gr ON g.game_id = gr.game_id
+        ORDER BY game_date
     </select>
 
     <delete id="deleteSelectedGamePlayers">
