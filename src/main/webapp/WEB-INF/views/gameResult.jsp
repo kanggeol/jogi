@@ -161,8 +161,8 @@
     </c:forEach>
     </tbody>
   </table>
-
-  <div class="d-flex justify-content-center mt-3">
+  
+  <div class="d-flex justify-content-center mt-3 mb-3">
       <a href="/" class="btn btn-primary">총금액 확인</a>
       <c:choose>
           <c:when test="${showDeleteButton}">
