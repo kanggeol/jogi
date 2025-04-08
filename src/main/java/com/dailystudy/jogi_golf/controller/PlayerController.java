@@ -63,17 +63,9 @@ public class PlayerController {
         for (int i = 0; i < results.size(); i++) {
             GameResult result = results.get(i);
             int calculatedAmount = Math.abs(result.getCalculatedAmount());
-            int adjustment = 0;
 
-            if (calculatedAmount > 100000) {
-                adjustment = 4;
-            } else if (calculatedAmount > 50000) {
-                adjustment = 3;
-            } else if (calculatedAmount > 10000) {
-                adjustment = 2;
-            } else {
-                adjustment = 0;
-            }
+            // 20000원당 1씩 조정, 19999 이하면 0
+            int adjustment = (calculatedAmount < 20000) ? 0 : (calculatedAmount / 20000);
 
             // 핸디캡을 조정 (양수 금액이면 핸디캡 감소, 음수 금액이면 핸디캡 증가)
             int newHandicap = result.getHandicap() + (result.getCalculatedAmount() > 0 ? -adjustment : adjustment);
