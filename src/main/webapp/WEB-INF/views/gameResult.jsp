@@ -12,7 +12,16 @@
       function submitCalculation() {
           const resultIds = Array.from(document.querySelectorAll('[name="resultIds"]')).map(input => input.value);
           const playerNames = Array.from(document.querySelectorAll('[name="names"]')).map(input => input.value);
-          const originalScore = Array.from(document.querySelectorAll('[name="originalScore"]')).map(input => input.value);
+          const originalScoreInputs = Array.from(document.querySelectorAll('[name="originalScore"]'));
+          const originalScore = originalScoreInputs.map(input => input.value.trim());
+
+          // 빈값 유효성 검사
+          if (originalScore.some(score => score === "")) {
+              alert("스코어를 입력해주세요");
+              originalScoreInputs.find(input => input.value.trim() === "").focus(); // 첫 번째 빈 입력란에 포커스
+          } else {
+              console.log(originalScore); // 유효하면 값 출력 또는 다른 로직 실행
+          }
           const handicaps = Array.from(document.querySelectorAll('[name="handicaps"]')).map(input => input.value);
 
           const data = {
@@ -123,7 +132,7 @@
       <tr >
         <td><input type="checkbox" class="player-checkbox" value="${result.resultId}" /></td>
         <c:if test="${showDeleteButton}">
-        <td>${status.index + 1}</td>
+        <td>${result.rank}</td>
         </c:if>
         <td>
           <input type="hidden" name="names" value="${result.playerName}" />
@@ -133,7 +142,7 @@
         <td>
           <c:choose>
             <c:when test="${result.rank == 0}">
-              <input type="number" class="form-control" name="originalScore" value="${result.originalScore}" required/>
+              <input type="number" class="form-control" name="originalScore" required/>
             </c:when>
             <c:otherwise>
               ${result.originalScore}

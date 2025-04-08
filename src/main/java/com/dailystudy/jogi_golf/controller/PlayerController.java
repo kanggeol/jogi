@@ -52,8 +52,10 @@ public class PlayerController {
             player.setPlayerName(request.getNames().get(i));
             player.setOriginalScore(request.getOriginalScore().get(i));
             player.setHandicap(request.getHandicaps().get(i));
+            player.setResultId(request.getResultId().get(i));
             players.add(player);
         }
+        System.out.println("=====players "+players);
 
         // 게임 결과 계산
         int gameFee = gameService.getGameFee(request.getGameId());
@@ -72,7 +74,6 @@ public class PlayerController {
             playerService.updateHandicap(result.getPlayerName(), newHandicap);
 
             // 결과 수정
-            result.setResultId(request.getResultId().get(i)); // 각 결과에 맞는 resultId 설정
             gameService.updateGameResult(result);
         }
 
