@@ -23,6 +23,10 @@ public interface GameResultMapper {
 
     List<String> findAllSavedDates();
 
+    List<String> findSavedDatesByYear(@Param("year") String year);
+
+    List<String> findAllYears();
+
     int deleteSelectedGamePlayers(@Param("resultIds") List<Long> resultIds);
 
     int getGameFee(@Param("gameId") int gameId);

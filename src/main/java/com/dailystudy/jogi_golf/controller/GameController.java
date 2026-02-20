@@ -132,9 +132,17 @@ public class GameController {
     }
 
     @GetMapping("/dateList")
-    public String showDateList(Model model) {
-        List<String> dates = gameService.getAllSavedDates();
+    public String showYearList(Model model) {
+        List<String> years = gameService.getAllYears();
+        model.addAttribute("years", years);
+        return "yearList";
+    }
+
+    @GetMapping("/dateListByYear")
+    public String showDateListByYear(@RequestParam("year") String year, Model model) {
+        List<String> dates = gameService.getSavedDatesByYear(year);
         model.addAttribute("dates", dates);
+        model.addAttribute("year", year);
         return "dateList";
     }
 }

@@ -99,6 +99,14 @@ public class GameService {
         return gameResultMapper.findAllSavedDates();
     }
 
+    public List<String> getSavedDatesByYear(String year) {
+        return gameResultMapper.findSavedDatesByYear(year);
+    }
+
+    public List<String> getAllYears() {
+        return gameResultMapper.findAllYears();
+    }
+
     public boolean deleteSelectedGamePlayers(List<Long> resultIds) {
         try {
             int deletedRows = gameResultMapper.deleteSelectedGamePlayers(resultIds);
