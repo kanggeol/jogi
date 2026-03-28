@@ -61,7 +61,7 @@ public class PlayerController {
         int gameFee = gameService.getGameFee(request.getGameId());
         List<GameResult> results = gameService.calculateGameResults(players, gameFee);
         System.out.println("========results "+results);
-        // 핸디캡 조정 및 업데이트
+        // 핸디 조정 및 업데이트
         for (int i = 0; i < results.size(); i++) {
             GameResult result = results.get(i);
             int calculatedAmount = Math.abs(result.getCalculatedAmount());
@@ -69,7 +69,7 @@ public class PlayerController {
             // 20000원당 1씩 조정, 19999 이하면 0
             int adjustment = (calculatedAmount < 20000) ? 0 : (calculatedAmount / 20000);
 
-            // 핸디캡을 조정 (양수 금액이면 핸디캡 감소, 음수 금액이면 핸디캡 증가)
+            // 핸디를 조정 (양수 금액이면 핸디 감소, 음수 금액이면 핸디 증가)
             int newHandicap = result.getHandicap() + (result.getCalculatedAmount() > 0 ? -adjustment : adjustment);
             playerService.updateHandicap(result.getPlayerName(), newHandicap);
 

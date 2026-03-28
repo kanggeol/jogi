@@ -16,4 +16,5 @@ public class GameResult {
     private int handicap;
     private int rank;
     private int calculatedAmount;
+    private String gameDate;
 }

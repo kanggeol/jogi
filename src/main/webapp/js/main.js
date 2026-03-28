@@ -3,13 +3,17 @@ function generatePlayerForms() {
     const playersDiv = document.getElementById('players');
     playersDiv.innerHTML = '';
 
+    if (playerCount === 0) {
+        return;
+    }
+
     for (let i = 0; i < playerCount; i++) {
         const row = document.createElement('div');
         row.className = 'player-form';
         row.innerHTML = `
-            <h5>플레이어 ${i + 1}</h5>
+            <h5>참가자 ${i + 1}</h5>
             <div class="form-row mb-2">
-                <div class="form-group col-12 col-md-4">
+                <div class="form-group col-8">
                     <label>이름</label>
                     <div class="input-group">
                         <input type="text" name="names" class="form-control player-name" placeholder="이름 입력" required>
@@ -18,9 +22,9 @@ function generatePlayerForms() {
                         </div>
                     </div>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-4">
                     <label>핸디</label>
-                    <input type="text" name="handicaps" class="form-control handicap-input" placeholder="핸디 입력" required>
+                    <input type="text" name="handicaps" class="form-control handicap-input" placeholder="핸디" required>
                 </div>
             </div>
         `;
@@ -56,7 +60,7 @@ function fetchPlayerList(inputElement, index) {
           if (data.players.length) {
               displayPlayerModal(data.players, index);
           } else {
-              alert("해당 이름과 일치하는 플레이어가 없습니다.");
+              alert("해당 이름과 일치하는 참가자가 없습니다.");
           }
       })
       .catch(error => console.error('Error:', error));

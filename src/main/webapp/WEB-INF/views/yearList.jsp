@@ -6,29 +6,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
   <title>연도 선택</title>
 </head>
-<body style="margin: 20px">
+<body>
+<div class="app-bar">연도 선택</div>
+
 <div class="container">
-  <h3 class="text-center mb-4">연도 선택</h3>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th class="text-center">연도</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="year" items="${years}">
+  <div class="app-card">
+    <h5 class="text-center mb-4">연도 선택</h5>
+    <table class="table table-bordered result-table">
+      <thead>
       <tr>
-        <td class="text-center">
-            <a href="/dateListByYear?year=${year}" class="btn btn-link">${year}년</a>
-        </td>
+        <th>연도</th>
       </tr>
-    </c:forEach>
-    </tbody>
-  </table>
-  <div class="d-flex justify-content-center mt-3">
-    <a href="/" class="btn btn-primary">홈으로</a>
+      </thead>
+      <tbody>
+      <c:forEach var="year" items="${years}">
+        <tr>
+          <td>
+              <a href="/dateListByYear?year=${year}" style="color: inherit; text-decoration: none;">${year}년</a>
+          </td>
+        </tr>
+      </c:forEach>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="btn-area">
+    <a href="/" class="btn btn-primary btn-action">홈으로</a>
   </div>
 </div>
 </body>

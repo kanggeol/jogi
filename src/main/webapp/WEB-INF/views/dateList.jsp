@@ -6,30 +6,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
   <title>날짜 선택</title>
 </head>
-<body style="margin: 20px">
+<body>
+<div class="app-bar">게임 날짜</div>
+
 <div class="container">
-  <h3 class="text-center mb-4">${year}년 게임 날짜</h3>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th class="text-center">날짜</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="date" items="${dates}">
+  <div class="app-card">
+    <h5 class="text-center mb-4">${year}년 게임 날짜</h5>
+    <table class="table table-bordered result-table">
+      <thead>
       <tr>
-        <td class="text-center">
-            <a href="/results?date=${date}" class="btn btn-link">${date}</a>
-        </td>
+        <th>날짜</th>
       </tr>
-    </c:forEach>
-    </tbody>
-  </table>
-  <div class="d-flex justify-content-center mt-3">
-    <a href="/dateList" class="btn btn-secondary mr-5">연도 다시 선택</a>
-    <a href="/" class="btn btn-primary">홈으로</a>
+      </thead>
+      <tbody>
+      <c:forEach var="date" items="${dates}">
+        <tr>
+          <td>
+              <a href="/gamesByDate?date=${date}" style="color: inherit; text-decoration: none;">${date}</a>
+          </td>
+        </tr>
+      </c:forEach>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="btn-area">
+    <a href="/dateList" class="btn btn-secondary btn-action">연도 다시 선택</a>
+    <a href="/" class="btn btn-primary btn-action">홈으로</a>
   </div>
 </div>
 </body>

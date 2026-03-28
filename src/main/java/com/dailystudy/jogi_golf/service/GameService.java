@@ -9,10 +9,12 @@ import com.dailystudy.jogi_golf.mapper.PlayerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class GameService {
@@ -87,7 +89,14 @@ public class GameService {
         return gameResultMapper.selectGameResultsByDate(gameDate);
     }
 
+    public List<GameResult> getGameResultsByGameId(int gameId) {
+        return gameResultMapper.selectGameResultsByGameId(gameId);
+    }
+
     public List<PlayerTotal> getPlayerTotals(String year) {
+        if ("thisYear".equals(year)) {
+            year = String.valueOf(LocalDate.now().getYear());
+        }
         return gameResultMapper.selectPlayerTotals(year);
     }
 
@@ -100,6 +109,9 @@ public class GameService {
     }
 
     public List<String> getSavedDatesByYear(String year) {
+        if ("thisYear".equals(year)) {
+            year = String.valueOf(LocalDate.now().getYear());
+        }
         return gameResultMapper.findSavedDatesByYear(year);
     }
 
@@ -119,5 +131,49 @@ public class GameService {
 
     public int getGameFee(int gameId) {
         return gameResultMapper.getGameFee(gameId);
+    }
+
+    public Integer getGameIdByDate(String gameDate) {
+        return gameResultMapper.getGameIdByDate(gameDate);
+    }
+
+    public void recalculateGameResults(int gameId) {
+        List<GameResult> remaining = gameResultMapper.selectGameResultsByGameId(gameId);
+        if (remaining.isEmpty()) return;
+
+        int gameFee = getGameFee(gameId);
+
+        // GameResult → Player 변환
+        List<Player> players = remaining.stream().map(gr -> {
+            Player p = new Player();
+            p.setResultId(gr.getResultId());
+            p.setPlayerName(gr.getPlayerName());
+            p.setOriginalScore(gr.getOriginalScore());
+            p.setHandicap(gr.getHandicap());
+            return p;
+        }).collect(Collectors.toList());
+
+        // 기존 calculateGameResults() 재사용
+        List<GameResult> recalculated = calculateGameResults(players, gameFee);
+
+        // DB 업데이트
+        for (GameResult result : recalculated) {
+            updateGameResult(result);
+        }
+    }
+
+    public void deleteGame(int gameId) {
+        // 해당 게임의 모든 결과 삭제
+        gameResultMapper.deleteGameResultsByGameId(gameId);
+        // 게임 자체 삭제
+        gameResultMapper.deleteGameById(gameId);
+    }
+
+    public List<Integer> getGameIdsByDate(String gameDate) {
+        return gameResultMapper.findGameIdsByDate(gameDate);
+    }
+
+    public boolean isGameExists(int gameId) {
+        return gameResultMapper.isGameExists(gameId);
     }
 }

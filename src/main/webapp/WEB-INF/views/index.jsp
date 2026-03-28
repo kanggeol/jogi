@@ -7,21 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
     <title>총금액 순위</title>
     <style>
-        /* 테이블 컨테이너 */
-        .table-container {
-            position: relative;
-            margin-top: 50px; /* 드롭다운과 여백 확보 */
-        }
-
-        /* 드롭다운 버튼을 테이블 우측 상단에 위치 */
-        .dropdown {
-            position: absolute;
-            top: -40px; /* 테이블 위쪽 */
-            right: 0;
-        }
-
         /* 드롭다운 메뉴 스타일 */
         .dropdown-menu {
             background-color: #f8f9fa;
@@ -36,23 +24,27 @@
         .dropdown-item:hover {
             background-color: #ddd;
         }
+
+        .dropdown-container {
+            text-align: right;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
-<body style="margin: 20px">
-<div class="container">
-    <h1>깊생골프</h1>
+<body>
+<div class="app-bar">깊생골프 ⛳</div>
 
-    <!-- 테이블 컨테이너 -->
-    <div class="table-container">
-        <!-- 드롭다운 버튼 (테이블 우측 상단) -->
-        <div class="dropdown">
+<div class="container">
+    <div class="app-card">
+        <!-- 드롭다운 버튼 -->
+        <div class="dropdown-container">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton">
                 <c:choose>
                     <c:when test="${empty selectedYear or selectedYear eq 'thisYear'}">
-                        올해
+                        ${currentYear}
                     </c:when>
                     <c:when test="${selectedYear eq 'lastYear'}">
-                        작년
+                        ${currentYear - 1}
                     </c:when>
                     <c:when test="${selectedYear eq 'allTime'}">
                         전체
@@ -64,38 +56,38 @@
             </button>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" data-year="lastYear">작년</a>
-                <a class="dropdown-item" href="#" data-year="thisYear">올해</a>
+                <a class="dropdown-item" href="#" data-year="${currentYear - 1}">${currentYear - 1}</a>
+                <a class="dropdown-item" href="#" data-year="${currentYear}">${currentYear}</a>
                 <a class="dropdown-item" href="#" data-year="allTime">전체</a>
             </div>
         </div>
 
         <!-- 테이블 -->
-        <table class="table table-bordered mt-4">
+        <table class="table table-bordered result-table">
             <thead>
             <tr>
-                <th>순위</th>
-                <th>이름</th>
-                <th>참여</th>
-                <th>총 금액</th>
+                <th class="col-num">순위</th>
+                <th class="col-name">이름</th>
+                <th class="col-num">참여</th>
+                <th class="col-amount">총 금액</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="player" items="${playerTotals}" varStatus="status">
                 <tr>
-                    <td>${status.index + 1}</td>
-                    <td>${player.playerName}</td>
-                    <td>${player.participationCount}회</td>
-                    <td><fmt:formatNumber value="${player.totalAmount}" type="number" groupingUsed="true" />원</td>
+                    <td class="col-num">${status.index + 1}</td>
+                    <td class="col-name">${player.playerName}</td>
+                    <td class="col-num">${player.participationCount}회</td>
+                    <td class="col-amount"><fmt:formatNumber value="${player.totalAmount}" type="number" groupingUsed="true" />원</td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
 
-    <div class="d-flex justify-content-center mt-3">
-        <a href="/gameForm" class="btn btn-primary">게임 생성하기</a>
-        <button type="button" class="btn btn-info ml-2" onclick="location.href='/dateList'">결과 조회하기</button>
+    <div class="btn-area">
+        <a href="/gameForm" class="btn btn-primary btn-action">게임 생성하기</a>
+        <button type="button" class="btn btn-info btn-action" onclick="location.href='/dateList'">결과 조회하기</button>
     </div>
 
 </div>
@@ -111,12 +103,6 @@
             let yearLabel = this.textContent;
             let yearValue = this.getAttribute('data-year');
 
-            if (yearValue === 'lastYear') {
-                yearValue = new Date().getFullYear() - 1;
-            } else if (yearValue === 'thisYear') {
-                yearValue = new Date().getFullYear();
-            }
-
             document.getElementById('dropdownMenuButton').textContent = yearLabel;
             location.href = '/?year=' + yearValue;
         });
@@ -124,7 +110,7 @@
 
     // 클릭 외부 영역을 누르면 드롭다운 닫기
     document.addEventListener('click', function (e) {
-        if (!document.querySelector('.dropdown').contains(e.target)) {
+        if (!document.querySelector('.dropdown-container').contains(e.target)) {
             document.querySelector('.dropdown-menu').classList.remove('show');
         }
     });

@@ -34,7 +34,7 @@
 
     <select id="selectGameResultsByDate" resultType="com.dailystudy.jogi_golf.domain.GameResult">
         SELECT gr.id as resultId, gr.player_name as playerName, gr.rank, gr.calculated_amount as calculatedAmount,
-               gr.original_score as originalScore, gr.handicap as handicap,g.game_id as gameId
+               gr.original_score as originalScore, gr.handicap as handicap, g.game_id as gameId, g.game_date as gameDate
         FROM game_results gr
                  INNER JOIN games g ON gr.game_id = g.game_id
         WHERE g.game_date = #{gameDate}
@@ -87,5 +87,41 @@
             #{id}
         </foreach>
     </delete>
+
+    <select id="selectGameResultsByGameId" parameterType="int" resultType="com.dailystudy.jogi_golf.domain.GameResult">
+        SELECT gr.id as resultId, gr.player_name as playerName, gr.rank,
+               gr.calculated_amount as calculatedAmount,
+               gr.original_score as originalScore, gr.handicap as handicap,
+               g.game_id as gameId, g.game_date as gameDate
+        FROM game_results gr
+        INNER JOIN games g ON gr.game_id = g.game_id
+        WHERE g.game_id = #{gameId}
+    </select>
+
+    <select id="getGameIdByDate" parameterType="String" resultType="Integer">
+        SELECT game_id FROM games WHERE game_date = #{gameDate} LIMIT 1
+    </select>
+
+    <delete id="deleteGameResultsByGameId" parameterType="int">
+        DELETE FROM game_results WHERE game_id = #{gameId}
+    </delete>
+
+    <delete id="deleteGameById" parameterType="int">
+        DELETE FROM games WHERE game_id = #{gameId}
+    </delete>
+
+    <select id="findGameIdsByDate" parameterType="String" resultType="Integer">
+        SELECT DISTINCT g.game_id
+        FROM games g
+                 INNER JOIN game_results gr ON g.game_id = gr.game_id
+        WHERE g.game_date = #{gameDate}
+        ORDER BY g.game_id DESC
+    </select>
+
+    <select id="isGameExists" parameterType="int" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM games
+        WHERE game_id = #{gameId}
+    </select>
 
 </mapper>
