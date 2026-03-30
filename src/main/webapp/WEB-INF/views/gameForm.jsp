@@ -18,7 +18,7 @@
 
             if (playerCount > 0 && playerNameInputs.length === 0) {
                 event.preventDefault();
-                alert('인원수를 입력했으면 "폼 생성하기"를 눌러서 참가자를 등록해주세요.');
+                alert('인원수를 입력했으면 "참가자 등록"를 눌러주세요.');
                 return false;
             }
 
@@ -69,7 +69,7 @@
                     <input type="number" class="form-control" id="playerCount" name="playerCount" min="0" max="10" value="0" placeholder="0명이면 생성 후 추가">
                 </div>
                 <div class="btn-area">
-                    <button type="button" class="btn btn-primary btn-action" id="generateButton">폼 생성하기</button>
+                    <button type="button" class="btn btn-primary btn-action" id="generateButton">참가자 등록</button>
                     <button type="submit" class="btn btn-success btn-action" id="saveButton">게임 생성</button>
                     <a href="/" class="btn btn-secondary btn-action">취소</a>
                 </div>
