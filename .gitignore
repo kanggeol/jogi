@@ -37,3 +37,10 @@ out/
 .vscode/
 /LOG_PATH_IS_UNDEFINED/
 
+### Images ###
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+

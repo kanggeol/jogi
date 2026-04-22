@@ -193,9 +193,8 @@
               })
           })
               .then(response => {
-                  console.log('Response status:', response.status);
                   if (response.ok) {
-                      window.location.reload();
+                      window.location.href = '/results?gameId=' + gameId;
                   } else {
                       alert('참가자 추가 실패');
                   }
