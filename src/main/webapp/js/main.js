@@ -87,11 +87,5 @@ function selectPlayer(player, index) {
 }
 
 window.onload = function() {
-    document.getElementById('generateButton').addEventListener('click', generatePlayerForms);
-    document.getElementById('playerCount').addEventListener('keypress', event => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            generatePlayerForms();
-        }
-    });
+    document.getElementById('playerCount').addEventListener('input', generatePlayerForms);
 };
