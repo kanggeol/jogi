@@ -17,13 +17,9 @@
             const playerNameInputs = document.querySelectorAll('[name="names"]');
 
             if (playerCount > 0 && playerNameInputs.length === 0) {
-                generatePlayerForms();
-                const refreshed = document.querySelectorAll('[name="names"]');
-                if (refreshed.length === 0) {
-                    event.preventDefault();
-                    alert('참가자 정보를 입력해주세요.');
-                    return false;
-                }
+                event.preventDefault();
+                alert('참가자 정보를 입력해주세요.');
+                return false;
             }
 
             if (playerCount > 0 && playerNameInputs.length > 0) {
