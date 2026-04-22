@@ -1,3 +1,60 @@
+/* 앱 전체 배경 */
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+/* 앱바 */
+.app-bar {
+    background-color: #2e7d32;
+    color: white;
+    padding: 16px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* 컨텐츠 카드 */
+.app-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* 테이블 헤더 그린 */
+.table thead th {
+    background-color: #2e7d32;
+    color: white;
+    border-color: #1b5e20;
+}
+
+/* 버튼 공통 */
+.btn-action {
+    min-width: auto !important;
+    border-radius: 24px;
+    font-weight: 600;
+    padding: 6px 12px !important;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* 버튼 영역 중앙 정렬 */
+.btn-area {
+    display: flex !important;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 20px;
+    flex-wrap: nowrap !important;
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* 플레이어 폼 */
 .player-form {
     border: 1px solid #ccc;
     padding: 15px;
@@ -8,4 +65,218 @@
 .player-form h5 {
     margin-bottom: 10px;
     font-weight: bold;
+}
+
+/* 게임 결과 테이블 컬럼 너비 최적화 */
+.result-table {
+    font-size: 13px;
+    table-layout: fixed;
+    width: 100%;
+    min-width: 500px;
+}
+
+/* 모바일 스크롤 */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 모바일 화면 (768px 이하) */
+@media (max-width: 768px) {
+    .result-table {
+        min-width: auto;
+    }
+
+    /* 모바일에서는 순위만 숨김 (체크박스는 유지) */
+    .col-num {
+        display: none;
+    }
+
+    /* 나머지 컬럼 너비 재조정 */
+    .col-check {
+        width: 32px;
+    }
+
+    .col-name {
+        min-width: 180px !important;
+        width: auto !important;
+    }
+
+    .col-score {
+        width: 55px !important;
+    }
+
+    .col-handicap {
+        width: 55px !important;
+    }
+
+    .col-amount {
+        width: 70px !important;
+    }
+
+    .result-table th,
+    .result-table td {
+        padding: 6px 3px;
+        font-size: 12px;
+    }
+}
+
+.result-table th,
+.result-table td {
+    padding: 6px 3px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* 체크박스 컬럼 - 최소화 */
+.col-check {
+    width: 32px !important;
+    text-align: center;
+}
+
+/* 순위/타수/핸디 등 숫자 컬럼 - 좁게 */
+.col-num {
+    width: 36px !important;
+    text-align: center;
+}
+
+/* 타수/핸디 컬럼 - 3자리 숫자 (약 55px) */
+.col-score {
+    width: 65px !important;
+    text-align: center;
+}
+
+.col-score input {
+    width: 60px !important;
+    padding: 8px 4px;
+    font-size: 15px;
+}
+
+.col-handicap {
+    width: 45px !important;
+    text-align: center;
+}
+
+/* 이름 컬럼 - 최소 너비 보장 */
+.col-name {
+    min-width: 120px !important;
+    word-break: keep-all;
+    text-align: center;
+}
+
+/* 금액 컬럼 */
+.col-amount {
+    width: 70px !important;
+    text-align: right;
+}
+
+/* 게임 폼 컴팩트 스타일 */
+.app-card .form-group {
+    margin-bottom: 10px;
+}
+
+.app-card .form-group label {
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.app-card .form-control {
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+/* 드롭다운 컨테이너 */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* 드롭다운 메뉴 스타일 */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 150px;
+    border-radius: 4px;
+    margin-top: 5px;
+    z-index: 1000;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+/* 게임 선택 테이블 스타일 */
+.games-table {
+    font-size: 14px;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.games-table th,
+.games-table td {
+    padding: 12px 8px !important;
+    vertical-align: middle !important;
+    text-align: center !important;
+}
+
+.games-col-num {
+    width: 20% !important;
+}
+
+.games-col-player {
+    width: 20% !important;
+}
+
+.games-col-status {
+    width: 30% !important;
+}
+
+.games-col-action {
+    width: 30% !important;
+}
+
+.games-cell-content {
+    font-size: 14px !important;
+}
+
+.btn-games-action {
+    background-color: #007bff !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    border-radius: 4px !important;
+    min-width: 60px !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+}
+
+.btn-games-action:hover {
+    background-color: #0056b3 !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+/* 게임 선택 상태 배지 */
+.games-table .badge {
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    display: inline-block !important;
+}
+
+/* 모바일 게임 선택 테이블 */
+@media (max-width: 768px) {
+    .games-table th,
+    .games-table td {
+        padding: 10px 5px !important;
+        font-size: 12px !important;
+    }
+
+    .btn-games-action {
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        min-width: 50px !important;
+    }
 }

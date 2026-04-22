@@ -5,6 +5,12 @@
 
 <mapper namespace="com.dailystudy.jogi_golf.mapper.GameResultMapper">
 
+    <select id="getGameFee" parameterType="int" resultType="java.lang.Integer">
+        SELECT game_fee as gameFee
+        FROM games
+        WHERE game_id=#{gameId}
+    </select>
+
     <insert id="insertGameId" parameterType="map" useGeneratedKeys="true" keyProperty="gameId">
         INSERT INTO games (game_date,game_fee)
         VALUES (#{gameDate},#{gameFee})
@@ -22,25 +28,29 @@
 
     <update id="updateGameResult" parameterType="com.dailystudy.jogi_golf.domain.GameResult">
         UPDATE game_results
-        SET rank=#{rank}, calculated_amount=#{calculatedAmount}, original_score=#{originalScore}
+        SET rank=#{rank}, calculated_amount=#{calculatedAmount}, original_score=#{originalScore}, handicap=#{handicap}
         Where id = #{resultId}
     </update>
 
     <select id="selectGameResultsByDate" resultType="com.dailystudy.jogi_golf.domain.GameResult">
         SELECT gr.id as resultId, gr.player_name as playerName, gr.rank, gr.calculated_amount as calculatedAmount,
-               gr.original_score as originalScore, gr.handicap as handicap,g.game_id as gameId
+               gr.original_score as originalScore, gr.handicap as handicap, g.game_id as gameId, g.game_date as gameDate
         FROM game_results gr
                  INNER JOIN games g ON gr.game_id = g.game_id
         WHERE g.game_date = #{gameDate}
-        ORDER BY gr.rank ASC
+        ORDER BY rank ASC,resultId ASC
     </select>
 
     <select id="selectPlayerTotals" resultType="com.dailystudy.jogi_golf.domain.PlayerTotal">
         SELECT player_name AS playerName,
-               SUM(calculated_amount) AS totalAmount,
-               COUNT(*) AS participationCount
-        FROM game_results
-        WHERE `rank`>0
+        SUM(calculated_amount) AS totalAmount,
+        COUNT(*) AS participationCount
+        FROM game_results gr
+        INNER JOIN golf.games g ON g.game_id = gr.game_id
+        WHERE `rank` > 0
+        <if test="year != 'allTime'">
+            AND year(game_date) = #{year}
+        </if>
         GROUP BY player_name
         ORDER BY totalAmount DESC
     </select>
@@ -53,6 +63,65 @@
         SELECT DISTINCT g.game_date
         FROM games g
                  INNER JOIN game_results gr ON g.game_id = gr.game_id
+        ORDER BY game_date
+    </select>
+
+    <select id="findSavedDatesByYear" resultType="String">
+        SELECT DISTINCT g.game_date
+        FROM games g
+                 INNER JOIN game_results gr ON g.game_id = gr.game_id
+        WHERE year(g.game_date) = #{year}
+        ORDER BY g.game_date DESC
+    </select>
+
+    <select id="findAllYears" resultType="String">
+        SELECT DISTINCT year(g.game_date) as year
+        FROM games g
+                 INNER JOIN game_results gr ON g.game_id = gr.game_id
+        ORDER BY year DESC
+    </select>
+
+    <delete id="deleteSelectedGamePlayers">
+        DELETE FROM golf.game_results WHERE id IN
+        <foreach item="id" collection="resultIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectGameResultsByGameId" parameterType="int" resultType="com.dailystudy.jogi_golf.domain.GameResult">
+        SELECT gr.id as resultId, gr.player_name as playerName, gr.rank,
+               gr.calculated_amount as calculatedAmount,
+               gr.original_score as originalScore, gr.handicap as handicap,
+               g.game_id as gameId, g.game_date as gameDate
+        FROM game_results gr
+        INNER JOIN games g ON gr.game_id = g.game_id
+        WHERE g.game_id = #{gameId}
+    </select>
+
+    <select id="getGameIdByDate" parameterType="String" resultType="Integer">
+        SELECT game_id FROM games WHERE game_date = #{gameDate} LIMIT 1
+    </select>
+
+    <delete id="deleteGameResultsByGameId" parameterType="int">
+        DELETE FROM game_results WHERE game_id = #{gameId}
+    </delete>
+
+    <delete id="deleteGameById" parameterType="int">
+        DELETE FROM games WHERE game_id = #{gameId}
+    </delete>
+
+    <select id="findGameIdsByDate" parameterType="String" resultType="Integer">
+        SELECT DISTINCT g.game_id
+        FROM games g
+                 INNER JOIN game_results gr ON g.game_id = gr.game_id
+        WHERE g.game_date = #{gameDate}
+        ORDER BY g.game_id DESC
+    </select>
+
+    <select id="isGameExists" parameterType="int" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM games
+        WHERE game_id = #{gameId}
     </select>
 
 </mapper>

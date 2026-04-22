@@ -17,9 +17,29 @@ public interface GameResultMapper {
 
     List<GameResult> selectGameResultsByDate(@Param("gameDate") String gameDate);
 
-    List<PlayerTotal> selectPlayerTotals();
+    List<PlayerTotal> selectPlayerTotals(@Param("year") String year);
 
     void deleteGameResult(@Param("resultId") String resultId);
 
     List<String> findAllSavedDates();
+
+    List<String> findSavedDatesByYear(@Param("year") String year);
+
+    List<String> findAllYears();
+
+    int deleteSelectedGamePlayers(@Param("resultIds") List<Long> resultIds);
+
+    int getGameFee(@Param("gameId") int gameId);
+
+    List<GameResult> selectGameResultsByGameId(@Param("gameId") int gameId);
+
+    Integer getGameIdByDate(@Param("gameDate") String gameDate);
+
+    int deleteGameResultsByGameId(@Param("gameId") int gameId);
+
+    int deleteGameById(@Param("gameId") int gameId);
+
+    List<Integer> findGameIdsByDate(@Param("gameDate") String gameDate);
+
+    boolean isGameExists(@Param("gameId") int gameId);
 }

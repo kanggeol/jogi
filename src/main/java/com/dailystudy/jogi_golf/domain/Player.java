@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Player {
+    private int resultId;
     private String playerName;
     private int originalScore;
     private int todayScore; //핸디 적용한 스코어

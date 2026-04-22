@@ -4,22 +4,30 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.dailystudy.jogi_golf.mapper.PlayerMapper">
-    <insert id="insertPlayer" parameterType="Player">
-        INSERT INTO players (player_name, handicap)
-        VALUES (#{playerName}, #{handicap});
-    </insert>
 
-    <select id="getPlayersByGameId" parameterType="int" resultType="Player">
-        SELECT * FROM players WHERE game_id = #{gameId};
+    <resultMap id="playerResultMap" type="com.dailystudy.jogi_golf.domain.Player">
+        <result column="player_name" property="playerName"/>
+        <result column="handicap" property="handicap"/>
+    </resultMap>
+
+    <select id="getHandicapByPlayerName" resultType="Integer">
+        SELECT handicap FROM players WHERE player_name = #{playerName}
     </select>
 
-    <update id="updatePlayer" parameterType="Player">
+    <update id="updateHandicap">
         UPDATE players
-        SET player_name = #{playerName}, handicap = #{handicap}
-        WHERE player_id = #{id};
+        SET handicap = #{handicap}
+        WHERE player_name = #{playerName}
     </update>
 
-    <select id="getPlayerByName" parameterType="String" resultType="Player">
-        SELECT * FROM players WHERE player_name = #{playerName};
+    <insert id="insertPlayer">
+        INSERT INTO players (player_name, handicap)
+        VALUES (#{playerName}, #{handicap})
+    </insert>
+
+    <select id="findPlayersByName" resultMap="playerResultMap">
+        SELECT player_name, handicap
+        FROM players
+        WHERE player_name LIKE CONCAT('%', #{playerName}, '%')
     </select>
 </mapper>
