@@ -288,9 +288,8 @@
     </div>
   </div>
 
-  <c:if test="${!showDeleteButton}">
-    <input type="hidden" name="gameId" value="${gameId}" />
-    <div class="player-form">
+  <input type="hidden" name="gameId" value="${gameId}" />
+  <div class="player-form">
       <h5>참가자 추가</h5>
       <div class="form-row mb-2">
         <div class="form-group col-8">
@@ -340,7 +339,6 @@
         </div>
       </div>
     </div>
-  </c:if>
 
   <div class="btn-area">
       <a href="/" class="btn btn-primary btn-action">총금액 확인</a>
