@@ -69,11 +69,11 @@
                     <label for="playerCount">인원수 (선택사항)</label>
                     <input type="number" class="form-control" id="playerCount" name="playerCount" min="0" max="10" value="0" placeholder="0명이면 생성 후 추가">
                 </div>
+                <div id="players" class="mt-3"></div>
                 <div class="btn-area">
                     <button type="submit" class="btn btn-success btn-action" id="saveButton">게임 생성</button>
                     <a href="/" class="btn btn-secondary btn-action">취소</a>
                 </div>
-                <div id="players" class="mt-3"></div>
 
                 <!-- 참가자 선택 모달 -->
                 <div class="modal fade" id="playerModal" tabindex="-1" role="dialog">
