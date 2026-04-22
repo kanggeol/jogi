@@ -38,6 +38,16 @@
 
         window.addEventListener('DOMContentLoaded', function() {
             document.querySelector('form').addEventListener('submit', validateForm);
+
+            const playerCountInput = document.getElementById('playerCount');
+            const generateButton = document.getElementById('generateButton');
+
+            function toggleGenerateButton() {
+                const count = parseInt(playerCountInput.value, 10);
+                generateButton.style.display = (count > 0) ? '' : 'none';
+            }
+
+            playerCountInput.addEventListener('input', toggleGenerateButton);
         });
     </script>
 </head>
@@ -69,7 +79,7 @@
                     <input type="number" class="form-control" id="playerCount" name="playerCount" min="0" max="10" value="0" placeholder="0명이면 생성 후 추가">
                 </div>
                 <div class="btn-area">
-                    <button type="button" class="btn btn-primary btn-action" id="generateButton">참가자 등록</button>
+                    <button type="button" class="btn btn-primary btn-action" id="generateButton" style="display:none;">참가자 등록</button>
                     <button type="submit" class="btn btn-success btn-action" id="saveButton">게임 생성</button>
                     <a href="/" class="btn btn-secondary btn-action">취소</a>
                 </div>
