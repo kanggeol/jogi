@@ -87,5 +87,11 @@ function selectPlayer(player, index) {
 }
 
 window.onload = function() {
-    document.getElementById('playerCount').addEventListener('input', generatePlayerForms);
+    const playerCountInput = document.getElementById('playerCount');
+    playerCountInput.addEventListener('input', generatePlayerForms);
+    playerCountInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    });
 };
