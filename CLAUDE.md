@@ -112,6 +112,10 @@ Spring Profile을 사용합니다.
 
 ### prod (운영 환경)
 - 설정 파일: `application-prod.yml`
+- 서버: `210.122.35.79`
+- 서비스명: `jogigolf`
+- WAR 경로: `/home/jogigolf/jogigolf.war`
+- 포트: `6000`
 
 ---
 
@@ -142,8 +146,22 @@ classpath:mapper/*.xml
 
 ```bash
 ./gradlew build          # 전체 빌드 (컴파일, 테스트, WAR 생성)
+./gradlew clean build -x test   # 테스트 제외 클린 빌드 (배포 전 권장)
 ./gradlew bootRun        # 로컬 실행
 ./gradlew clean          # 빌드 산출물 삭제
+```
+
+### 배포
+
+```bash
+# 1. 빌드
+./gradlew clean build -x test
+
+# 2. WAR 업로드
+scp build/libs/jogigolf.war root@210.122.35.79:/home/jogigolf/jogigolf.war
+
+# 3. 서비스 재시작
+ssh root@210.122.35.79 "service jogigolf restart"
 ```
 
 ---
@@ -212,3 +230,18 @@ classpath:mapper/*.xml
   - `@NoArgsConstructor`
 - WAR 파일명: `jogigolf.war` (`build.gradle`에 설정)
 - SQL 로그는 log4jdbc를 통해 확인 가능
+
+---
+
+## 게임 흐름
+
+1. 게임 생성 (`/save`): 참가자 0명으로도 생성 가능
+2. 참가자 추가 (`/results?gameId=X`): 생성 후 참가자 추가 가능
+3. 계산하기: 스코어 입력 후 계산 → `showDeleteButton=true`로 전환
+4. 계산 완료 후: 참가자 추가 섹션 숨김, 순위/금액 표시
+
+### 주의사항 (쿼리)
+
+- `games` 테이블과 `game_results` 테이블 JOIN 시 반드시 `LEFT JOIN` 사용
+  - `INNER JOIN` 사용 시 참가자 0명인 게임이 목록에서 누락됨
+  - 영향 쿼리: `findGameIdsByDate`, `findSavedDatesByYear`, `findAllYears`
