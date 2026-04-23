@@ -60,14 +60,14 @@
                 <div class="alert alert-info">
                     <strong>참가자 추가 방식</strong>
                     <ul style="margin-bottom: 0;">
-                        <li><strong>방법 1:</strong> 아래에서 인원수를 선택하고 참가자를 등록 후 저장</li>
-                        <li><strong>방법 2:</strong> 게임을 생성한 후 링크를 공유하면 각자가 참가자를 추가</li>
+                        <li><strong>방법 1:</strong> 아래에서 인원수를 입력하고 참가자를 등록 후 게임 생성</li>
+                        <li><strong>방법 2:</strong> 인원수를 0으로 두고 게임을 먼저 생성한 후 참가자를 추가</li>
                     </ul>
                 </div>
 
                 <div class="form-group">
                     <label for="playerCount">인원수 (선택사항)</label>
-                    <input type="number" class="form-control" id="playerCount" name="playerCount" min="0" max="10" value="0" placeholder="0명이면 생성 후 추가">
+                    <input type="number" class="form-control" id="playerCount" name="playerCount" min="0" max="10" value="0" placeholder="0명이면 생성 후 참가자 추가" onfocus="if(this.value==='0') this.value=''" onblur="if(this.value==='') this.value='0'">
                 </div>
                 <div id="players" class="mt-3"></div>
                 <div class="btn-area">

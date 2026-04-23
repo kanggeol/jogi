@@ -65,6 +65,12 @@ body {
 .player-form h5 {
     margin-bottom: 10px;
     font-weight: bold;
+    font-size: 14px;
+}
+
+.player-form label {
+    font-size: 14px;
+    margin-bottom: 4px;
 }
 
 /* 게임 결과 테이블 컬럼 너비 최적화 */
@@ -85,7 +91,7 @@ body {
 @media (max-width: 768px) {
     .btn-action {
         padding: 5px 8px !important;
-        font-size: 11px !important;
+        font-size: 12px !important;
     }
 
     .result-table {
@@ -187,6 +193,10 @@ body {
 
 .app-card .form-control {
     padding: 6px 10px;
+    font-size: 14px;
+}
+
+.app-card .alert {
     font-size: 14px;
 }
 

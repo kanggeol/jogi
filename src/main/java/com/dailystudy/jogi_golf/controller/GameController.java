@@ -119,7 +119,7 @@ public class GameController {
             if (results != null && !results.isEmpty()) {
                 gameDate = results.get(0).getGameDate();
             } else {
-                gameDate = "";
+                gameDate = gameService.getGameDateByGameId(gameId);
             }
         } else if (date != null) {
             results = gameService.getGameResultsByDate(date);

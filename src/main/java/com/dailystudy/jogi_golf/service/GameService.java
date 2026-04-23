@@ -176,4 +176,8 @@ public class GameService {
     public boolean isGameExists(int gameId) {
         return gameResultMapper.isGameExists(gameId);
     }
+
+    public String getGameDateByGameId(int gameId) {
+        return gameResultMapper.getGameDateByGameId(gameId);
+    }
 }

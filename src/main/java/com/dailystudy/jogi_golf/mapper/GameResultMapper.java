@@ -42,4 +42,6 @@ public interface GameResultMapper {
     List<Integer> findGameIdsByDate(@Param("gameDate") String gameDate);
 
     boolean isGameExists(@Param("gameId") int gameId);
+
+    String getGameDateByGameId(@Param("gameId") int gameId);
 }

@@ -289,6 +289,7 @@
   </div>
 
   <input type="hidden" name="gameId" value="${gameId}" />
+  <c:if test="${!showDeleteButton}">
   <div class="player-form">
       <h5>참가자 추가</h5>
       <div class="form-row mb-2">
@@ -324,6 +325,7 @@
         </c:choose>
       </div>
     </div>
+  </c:if>
 
     <!-- 참가자 선택 모달 -->
     <div class="modal fade" id="addPlayerModal" tabindex="-1" role="dialog">

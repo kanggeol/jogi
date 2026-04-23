@@ -113,7 +113,7 @@
     <select id="findGameIdsByDate" parameterType="String" resultType="Integer">
         SELECT DISTINCT g.game_id
         FROM games g
-                 INNER JOIN game_results gr ON g.game_id = gr.game_id
+                 LEFT JOIN game_results gr ON g.game_id = gr.game_id
         WHERE g.game_date = #{gameDate}
         ORDER BY g.game_id DESC
     </select>
@@ -122,6 +122,10 @@
         SELECT COUNT(*) > 0
         FROM games
         WHERE game_id = #{gameId}
+    </select>
+
+    <select id="getGameDateByGameId" parameterType="int" resultType="String">
+        SELECT game_date FROM games WHERE game_id = #{gameId}
     </select>
 
 </mapper>
