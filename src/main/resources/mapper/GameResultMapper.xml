@@ -69,7 +69,6 @@
     <select id="findSavedDatesByYear" resultType="String">
         SELECT DISTINCT g.game_date
         FROM games g
-                 INNER JOIN game_results gr ON g.game_id = gr.game_id
         WHERE year(g.game_date) = #{year}
         ORDER BY g.game_date DESC
     </select>
@@ -77,7 +76,6 @@
     <select id="findAllYears" resultType="String">
         SELECT DISTINCT year(g.game_date) as year
         FROM games g
-                 INNER JOIN game_results gr ON g.game_id = gr.game_id
         ORDER BY year DESC
     </select>
 
