@@ -39,6 +39,9 @@
                   <c:when test="${game.hasResults}">
                     <span class="badge badge-success">계산 완료</span>
                   </c:when>
+                  <c:when test="${game.playerCount == 0}">
+                    <span class="badge badge-secondary">참가자 없음</span>
+                  </c:when>
                   <c:otherwise>
                     <span class="badge badge-info">계산 대기</span>
                   </c:otherwise>
